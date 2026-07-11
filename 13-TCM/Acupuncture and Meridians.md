@@ -14,4 +14,4 @@ tags: [tcm, acupuncture]
 
 ## 关联
 - 所属领域:[[TCM MOC]]
-- 相关笔记:[[TCM Fundamentals]]
+- 相关笔记:[[TCM Fundamentals]]、[[TCM Grading Exam Plan]]

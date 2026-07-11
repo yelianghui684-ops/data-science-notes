@@ -10,7 +10,7 @@ const graphData = {
   {
    "id": "Acupuncture and Meridians",
    "group": "13-TCM",
-   "degree": 2,
+   "degree": 3,
    "isHub": false,
    "path": "13-TCM/Acupuncture and Meridians.md"
   },
@@ -24,7 +24,7 @@ const graphData = {
   {
    "id": "Backtesting Rigor",
    "group": "11-Finance-Risk",
-   "degree": 6,
+   "degree": 7,
    "isHub": false,
    "path": "11-Finance-Risk/Backtesting Rigor.md"
   },
@@ -220,7 +220,7 @@ const graphData = {
   {
    "id": "Experiment Design and AB Testing",
    "group": "02-Statistics",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "02-Statistics/Experiment Design and AB Testing.md"
   },
@@ -262,7 +262,7 @@ const graphData = {
   {
    "id": "Information Theory",
    "group": "01-Mathematics",
-   "degree": 6,
+   "degree": 7,
    "isHub": false,
    "path": "01-Mathematics/Information Theory.md"
   },
@@ -290,7 +290,7 @@ const graphData = {
   {
    "id": "Large Language Models",
    "group": "06-Deep-Learning",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "06-Deep-Learning/Large Language Models.md"
   },
@@ -498,13 +498,6 @@ const graphData = {
    "path": "11-Finance-Risk/Quantitative Investing.md"
   },
   {
-   "id": "README",
-   "group": "根目录",
-   "degree": 0,
-   "isHub": false,
-   "path": "README.md"
-  },
-  {
    "id": "RNNs and Sequence Models",
    "group": "06-Deep-Learning",
    "degree": 3,
@@ -528,7 +521,7 @@ const graphData = {
   {
    "id": "Reading List",
    "group": "14-Personal-Growth",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "14-Personal-Growth/Reading List.md"
   },
@@ -605,7 +598,7 @@ const graphData = {
   {
    "id": "TCM Grading Exam Plan",
    "group": "13-TCM",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "13-TCM/TCM Grading Exam Plan.md"
   },
@@ -633,7 +626,7 @@ const graphData = {
   {
    "id": "Training and Recovery",
    "group": "14-Personal-Growth",
-   "degree": 2,
+   "degree": 3,
    "isHub": false,
    "path": "14-Personal-Growth/Training and Recovery.md"
   },
@@ -992,6 +985,10 @@ const graphData = {
    "target": "Model Evaluation and Tuning"
   },
   {
+   "source": "Backtesting Rigor",
+   "target": "Experiment Design and AB Testing"
+  },
+  {
    "source": "Position Management",
    "target": "Optimization"
   },
@@ -1248,6 +1245,10 @@ const graphData = {
    "target": "Project Template"
   },
   {
+   "source": "Large Language Models",
+   "target": "Information Theory"
+  },
+  {
    "source": "RNNs and Sequence Models",
    "target": "Neural Network Basics"
   },
@@ -1322,6 +1323,10 @@ const graphData = {
   {
    "source": "TCM MOC",
    "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Acupuncture and Meridians",
+   "target": "TCM Grading Exam Plan"
   },
   {
    "source": "Machine Learning MOC",
@@ -1726,6 +1731,10 @@ const graphData = {
   {
    "source": "Training and Recovery",
    "target": "The 80-20 Learning Method"
+  },
+  {
+   "source": "Training and Recovery",
+   "target": "Reading List"
   },
   {
    "source": "The 80-20 Learning Method",

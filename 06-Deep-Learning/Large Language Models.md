@@ -14,4 +14,4 @@ tags: [深度学习, LLM]
 
 ## 关联
 - 所属领域:[[Deep Learning MOC]]
-- 相关笔记:[[Transformers and Attention]]、[[Project Template]]
+- 相关笔记:[[Transformers and Attention]]、[[Project Template]]、[[Information Theory]](交叉熵损失与困惑度)

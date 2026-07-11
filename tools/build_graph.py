@@ -23,7 +23,9 @@ for root, dirs, files in os.walk(VAULT):
         full = os.path.join(root, fn)
         rel = os.path.relpath(full, VAULT)
         name = fn[:-3]
-        top = rel.split(os.sep)[0] if os.sep in rel else "根目录"
+        if os.sep not in rel:
+            continue  # 根目录的 README 等不是知识笔记,不进图谱
+        top = rel.split(os.sep)[0]
         notes[name] = {"group": top, "path": rel}
 
 for name, meta in notes.items():

@@ -15,4 +15,4 @@ tags: [finance, quant, backtest]
 
 ## 关联
 - 所属领域:[[Finance and Risk MOC]]
-- 相关笔记:[[Quantitative Investing]]、[[Risk Metrics]]
+- 相关笔记:[[Quantitative Investing]]、[[Risk Metrics]]、[[Experiment Design and AB Testing]](回测过拟合与统计窥探问题同源)

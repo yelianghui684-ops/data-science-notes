@@ -14,4 +14,4 @@ tags: [growth, health]
 
 ## 关联
 - 所属领域:[[Personal Growth MOC]]
-- 相关笔记:[[The 80-20 Learning Method]]
+- 相关笔记:[[The 80-20 Learning Method]]、[[Reading List]](《掌控习惯》的习惯回路正是训练节律的心理学基础)
