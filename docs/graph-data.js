@@ -24,14 +24,14 @@ const graphData = {
   {
    "id": "Backtesting Rigor",
    "group": "11-Finance-Risk",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "11-Finance-Risk/Backtesting Rigor.md"
   },
   {
    "id": "Bayesian Statistics",
    "group": "02-Statistics",
-   "degree": 4,
+   "degree": 6,
    "isHub": false,
    "path": "02-Statistics/Bayesian Statistics.md"
   },
@@ -66,7 +66,7 @@ const graphData = {
   {
    "id": "Competition Strategy",
    "group": "10-Academics",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "10-Academics/Competition Strategy.md"
   },
@@ -150,7 +150,7 @@ const graphData = {
   {
    "id": "Decision Trees and Ensembles",
    "group": "05-Machine-Learning",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "05-Machine-Learning/Decision Trees and Ensembles.md"
   },
@@ -197,6 +197,20 @@ const graphData = {
    "path": "11-Finance-Risk/Economics Basics.md"
   },
   {
+   "id": "Effective Decision Making",
+   "group": "11-Finance-Risk",
+   "degree": 6,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Effective Decision Making.md"
+  },
+  {
+   "id": "Embrace Reality",
+   "group": "11-Finance-Risk",
+   "degree": 4,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Embrace Reality.md"
+  },
+  {
    "id": "English Speaking",
    "group": "14-Personal-Growth",
    "degree": 3,
@@ -220,14 +234,14 @@ const graphData = {
   {
    "id": "Finance and Risk MOC",
    "group": "11-Finance-Risk",
-   "degree": 12,
+   "degree": 13,
    "isHub": true,
    "path": "11-Finance-Risk/Finance and Risk MOC.md"
   },
   {
    "id": "Git and Version Control",
    "group": "03-Programming-Tools",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "03-Programming-Tools/Git and Version Control.md"
   },
@@ -237,6 +251,13 @@ const graphData = {
    "degree": 6,
    "isHub": false,
    "path": "02-Statistics/Hypothesis Testing.md"
+  },
+  {
+   "id": "Idea Meritocracy",
+   "group": "11-Finance-Risk",
+   "degree": 6,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Idea Meritocracy.md"
   },
   {
    "id": "Information Theory",
@@ -290,7 +311,7 @@ const graphData = {
   {
    "id": "MLOps",
    "group": "08-Data-Engineering",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "08-Data-Engineering/MLOps.md"
   },
@@ -302,6 +323,13 @@ const graphData = {
    "path": "05-Machine-Learning/Machine Learning MOC.md"
   },
   {
+   "id": "Manage as a Machine",
+   "group": "11-Finance-Risk",
+   "degree": 5,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Manage as a Machine.md"
+  },
+  {
    "id": "Market Fundamentals",
    "group": "11-Finance-Risk",
    "degree": 4,
@@ -311,7 +339,7 @@ const graphData = {
   {
    "id": "Mathematical Modeling MCM",
    "group": "10-Academics",
-   "degree": 8,
+   "degree": 10,
    "isHub": false,
    "path": "10-Academics/Mathematical Modeling MCM.md"
   },
@@ -328,6 +356,13 @@ const graphData = {
    "degree": 6,
    "isHub": false,
    "path": "07-Data-Visualization/Matplotlib and Seaborn.md"
+  },
+  {
+   "id": "Mistakes and the Issue Log",
+   "group": "11-Finance-Risk",
+   "degree": 5,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Mistakes and the Issue Log.md"
   },
   {
    "id": "Model Evaluation and Tuning",
@@ -402,14 +437,21 @@ const graphData = {
   {
    "id": "Position Management",
    "group": "11-Finance-Risk",
-   "degree": 6,
+   "degree": 8,
    "isHub": false,
    "path": "11-Finance-Risk/Position Management.md"
   },
   {
+   "id": "Principles Book MOC",
+   "group": "11-Finance-Risk",
+   "degree": 12,
+   "isHub": true,
+   "path": "11-Finance-Risk/Principles-Book/Principles Book MOC.md"
+  },
+  {
    "id": "Probability Theory",
    "group": "01-Mathematics",
-   "degree": 7,
+   "degree": 8,
    "isHub": false,
    "path": "01-Mathematics/Probability Theory.md"
   },
@@ -423,7 +465,7 @@ const graphData = {
   {
    "id": "Project Template",
    "group": "09-Projects",
-   "degree": 10,
+   "degree": 11,
    "isHub": false,
    "path": "09-Projects/Project Template.md"
   },
@@ -451,7 +493,7 @@ const graphData = {
   {
    "id": "Quantitative Investing",
    "group": "11-Finance-Risk",
-   "degree": 9,
+   "degree": 10,
    "isHub": false,
    "path": "11-Finance-Risk/Quantitative Investing.md"
   },
@@ -470,16 +512,23 @@ const graphData = {
    "path": "06-Deep-Learning/RNNs and Sequence Models.md"
   },
   {
-   "id": "Ray Dalio Principles",
+   "id": "Radical Open-Mindedness",
    "group": "11-Finance-Risk",
    "degree": 4,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Radical Open-Mindedness.md"
+  },
+  {
+   "id": "Ray Dalio Principles",
+   "group": "11-Finance-Risk",
+   "degree": 5,
    "isHub": false,
    "path": "11-Finance-Risk/Ray Dalio Principles.md"
   },
   {
    "id": "Reading List",
    "group": "14-Personal-Growth",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "14-Personal-Growth/Reading List.md"
   },
@@ -570,9 +619,16 @@ const graphData = {
   {
    "id": "The 80-20 Learning Method",
    "group": "14-Personal-Growth",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "14-Personal-Growth/The 80-20 Learning Method.md"
+  },
+  {
+   "id": "The Five-Step Process",
+   "group": "11-Finance-Risk",
+   "degree": 6,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/The Five-Step Process.md"
   },
   {
    "id": "Training and Recovery",
@@ -596,6 +652,13 @@ const graphData = {
    "path": "11-Finance-Risk/Turtle Trading Rules.md"
   },
   {
+   "id": "Understanding How People Are Wired",
+   "group": "11-Finance-Risk",
+   "degree": 3,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Understanding How People Are Wired.md"
+  },
+  {
    "id": "Visualization Design Principles",
    "group": "07-Data-Visualization",
    "degree": 4,
@@ -615,6 +678,13 @@ const graphData = {
    "degree": 4,
    "isHub": false,
    "path": "12-Web3/Web3 and Blockchain Basics.md"
+  },
+  {
+   "id": "Who Before What",
+   "group": "11-Finance-Risk",
+   "degree": 3,
+   "isHub": false,
+   "path": "11-Finance-Risk/Principles-Book/Who Before What.md"
   },
   {
    "id": "🌌 Data Science Second Brain",
@@ -811,6 +881,10 @@ const graphData = {
   },
   {
    "source": "Ray Dalio Principles",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Ray Dalio Principles",
    "target": "Position Management"
   },
   {
@@ -924,6 +998,146 @@ const graphData = {
   {
    "source": "Position Management",
    "target": "Risk Metrics"
+  },
+  {
+   "source": "Radical Open-Mindedness",
+   "target": "Bayesian Statistics"
+  },
+  {
+   "source": "Radical Open-Mindedness",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Radical Open-Mindedness",
+   "target": "Effective Decision Making"
+  },
+  {
+   "source": "Radical Open-Mindedness",
+   "target": "Idea Meritocracy"
+  },
+  {
+   "source": "Idea Meritocracy",
+   "target": "Decision Trees and Ensembles"
+  },
+  {
+   "source": "Idea Meritocracy",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Idea Meritocracy",
+   "target": "Bayesian Statistics"
+  },
+  {
+   "source": "Manage as a Machine",
+   "target": "The Five-Step Process"
+  },
+  {
+   "source": "Manage as a Machine",
+   "target": "MLOps"
+  },
+  {
+   "source": "Manage as a Machine",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Manage as a Machine",
+   "target": "Mistakes and the Issue Log"
+  },
+  {
+   "source": "Manage as a Machine",
+   "target": "Idea Meritocracy"
+  },
+  {
+   "source": "The Five-Step Process",
+   "target": "Project Template"
+  },
+  {
+   "source": "The Five-Step Process",
+   "target": "Competition Strategy"
+  },
+  {
+   "source": "The Five-Step Process",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "The Five-Step Process",
+   "target": "The 80-20 Learning Method"
+  },
+  {
+   "source": "Embrace Reality",
+   "target": "Backtesting Rigor"
+  },
+  {
+   "source": "Embrace Reality",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Embrace Reality",
+   "target": "The Five-Step Process"
+  },
+  {
+   "source": "Embrace Reality",
+   "target": "Mistakes and the Issue Log"
+  },
+  {
+   "source": "Effective Decision Making",
+   "target": "Probability Theory"
+  },
+  {
+   "source": "Effective Decision Making",
+   "target": "Quantitative Investing"
+  },
+  {
+   "source": "Effective Decision Making",
+   "target": "Idea Meritocracy"
+  },
+  {
+   "source": "Effective Decision Making",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Effective Decision Making",
+   "target": "Position Management"
+  },
+  {
+   "source": "Who Before What",
+   "target": "Mathematical Modeling MCM"
+  },
+  {
+   "source": "Who Before What",
+   "target": "Principles Book MOC"
+  },
+  {
+   "source": "Who Before What",
+   "target": "Understanding How People Are Wired"
+  },
+  {
+   "source": "Principles Book MOC",
+   "target": "Understanding How People Are Wired"
+  },
+  {
+   "source": "Principles Book MOC",
+   "target": "Mistakes and the Issue Log"
+  },
+  {
+   "source": "Principles Book MOC",
+   "target": "Finance and Risk MOC"
+  },
+  {
+   "source": "Principles Book MOC",
+   "target": "Reading List"
+  },
+  {
+   "source": "Mistakes and the Issue Log",
+   "target": "Position Management"
+  },
+  {
+   "source": "Mistakes and the Issue Log",
+   "target": "Git and Version Control"
+  },
+  {
+   "source": "Understanding How People Are Wired",
+   "target": "Mathematical Modeling MCM"
   },
   {
    "source": "Advanced SQL",
