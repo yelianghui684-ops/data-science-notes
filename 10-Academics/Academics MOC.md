@@ -13,6 +13,8 @@ tags: [MOC, academics]
 **竞赛**
 - [[Competition Strategy]]
 - [[Mathematical Modeling MCM]]
+- [[Evaluation Models AHP TOPSIS]]
+- [[LaTeX and Academic Writing]]
 - [[Competitive Programming]]
 
 **规划**

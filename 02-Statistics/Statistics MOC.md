@@ -10,5 +10,7 @@ tags: [MOC, 统计]
 - [[Regression Analysis]]
 - [[Bayesian Statistics]]
 - [[Experiment Design and AB Testing]]
+- [[Time Series Analysis]]
+- [[Exploratory Data Analysis]]
 
 ⬆ 返回:[[🌌 Data Science Second Brain]]

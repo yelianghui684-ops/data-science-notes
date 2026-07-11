@@ -1,9 +1,16 @@
 const graphData = {
  "nodes": [
   {
+   "id": "AI Agent Workflows",
+   "group": "03-Programming-Tools",
+   "degree": 5,
+   "isHub": false,
+   "path": "03-Programming-Tools/AI Agent Workflows.md"
+  },
+  {
    "id": "Academics MOC",
    "group": "10-Academics",
-   "degree": 8,
+   "degree": 10,
    "isHub": true,
    "path": "10-Academics/Academics MOC.md"
   },
@@ -24,7 +31,7 @@ const graphData = {
   {
    "id": "Backtesting Rigor",
    "group": "11-Finance-Risk",
-   "degree": 7,
+   "degree": 8,
    "isHub": false,
    "path": "11-Finance-Risk/Backtesting Rigor.md"
   },
@@ -94,7 +101,7 @@ const graphData = {
   {
    "id": "Data Cleaning",
    "group": "08-Data-Engineering",
-   "degree": 5,
+   "degree": 6,
    "isHub": false,
    "path": "08-Data-Engineering/Data Cleaning.md"
   },
@@ -164,14 +171,14 @@ const graphData = {
   {
    "id": "Degree Course Map",
    "group": "10-Academics",
-   "degree": 9,
+   "degree": 10,
    "isHub": false,
    "path": "10-Academics/Degree Course Map.md"
   },
   {
    "id": "Descriptive Statistics",
    "group": "02-Statistics",
-   "degree": 10,
+   "degree": 11,
    "isHub": false,
    "path": "02-Statistics/Descriptive Statistics.md"
   },
@@ -213,9 +220,16 @@ const graphData = {
   {
    "id": "English Speaking",
    "group": "14-Personal-Growth",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "14-Personal-Growth/English Speaking.md"
+  },
+  {
+   "id": "Evaluation Models AHP TOPSIS",
+   "group": "10-Academics",
+   "degree": 4,
+   "isHub": false,
+   "path": "10-Academics/Evaluation Models AHP TOPSIS.md"
   },
   {
    "id": "Experiment Design and AB Testing",
@@ -225,9 +239,16 @@ const graphData = {
    "path": "02-Statistics/Experiment Design and AB Testing.md"
   },
   {
+   "id": "Exploratory Data Analysis",
+   "group": "02-Statistics",
+   "degree": 7,
+   "isHub": false,
+   "path": "02-Statistics/Exploratory Data Analysis.md"
+  },
+  {
    "id": "Feature Engineering",
    "group": "05-Machine-Learning",
-   "degree": 9,
+   "degree": 10,
    "isHub": false,
    "path": "05-Machine-Learning/Feature Engineering.md"
   },
@@ -262,7 +283,7 @@ const graphData = {
   {
    "id": "Information Theory",
    "group": "01-Mathematics",
-   "degree": 7,
+   "degree": 8,
    "isHub": false,
    "path": "01-Mathematics/Information Theory.md"
   },
@@ -288,9 +309,16 @@ const graphData = {
    "path": "09-Projects/Kaggle Notes.md"
   },
   {
+   "id": "LaTeX and Academic Writing",
+   "group": "10-Academics",
+   "degree": 4,
+   "isHub": false,
+   "path": "10-Academics/LaTeX and Academic Writing.md"
+  },
+  {
    "id": "Large Language Models",
    "group": "06-Deep-Learning",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "06-Deep-Learning/Large Language Models.md"
   },
@@ -339,7 +367,7 @@ const graphData = {
   {
    "id": "Mathematical Modeling MCM",
    "group": "10-Academics",
-   "degree": 10,
+   "degree": 12,
    "isHub": false,
    "path": "10-Academics/Mathematical Modeling MCM.md"
   },
@@ -353,7 +381,7 @@ const graphData = {
   {
    "id": "Matplotlib and Seaborn",
    "group": "07-Data-Visualization",
-   "degree": 6,
+   "degree": 7,
    "isHub": false,
    "path": "07-Data-Visualization/Matplotlib and Seaborn.md"
   },
@@ -367,7 +395,7 @@ const graphData = {
   {
    "id": "Model Evaluation and Tuning",
    "group": "05-Machine-Learning",
-   "degree": 9,
+   "degree": 10,
    "isHub": false,
    "path": "05-Machine-Learning/Model Evaluation and Tuning.md"
   },
@@ -409,14 +437,14 @@ const graphData = {
   {
    "id": "Optimization",
    "group": "01-Mathematics",
-   "degree": 7,
+   "degree": 8,
    "isHub": false,
    "path": "01-Mathematics/Optimization.md"
   },
   {
    "id": "Pandas",
    "group": "03-Programming-Tools",
-   "degree": 11,
+   "degree": 12,
    "isHub": false,
    "path": "03-Programming-Tools/Pandas.md"
   },
@@ -458,14 +486,14 @@ const graphData = {
   {
    "id": "Programming and Tools MOC",
    "group": "03-Programming-Tools",
-   "degree": 6,
+   "degree": 7,
    "isHub": true,
    "path": "03-Programming-Tools/Programming and Tools MOC.md"
   },
   {
    "id": "Project Template",
    "group": "09-Projects",
-   "degree": 11,
+   "degree": 12,
    "isHub": false,
    "path": "09-Projects/Project Template.md"
   },
@@ -493,14 +521,14 @@ const graphData = {
   {
    "id": "Quantitative Investing",
    "group": "11-Finance-Risk",
-   "degree": 10,
+   "degree": 11,
    "isHub": false,
    "path": "11-Finance-Risk/Quantitative Investing.md"
   },
   {
    "id": "RNNs and Sequence Models",
    "group": "06-Deep-Learning",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "06-Deep-Learning/RNNs and Sequence Models.md"
   },
@@ -528,7 +556,7 @@ const graphData = {
   {
    "id": "Regression Analysis",
    "group": "02-Statistics",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "02-Statistics/Regression Analysis.md"
   },
@@ -556,7 +584,7 @@ const graphData = {
   {
    "id": "Securities Qualification Exams",
    "group": "11-Finance-Risk",
-   "degree": 3,
+   "degree": 4,
    "isHub": false,
    "path": "11-Finance-Risk/Securities Qualification Exams.md"
   },
@@ -570,7 +598,7 @@ const graphData = {
   {
    "id": "Statistics MOC",
    "group": "02-Statistics",
-   "degree": 6,
+   "degree": 8,
    "isHub": true,
    "path": "02-Statistics/Statistics MOC.md"
   },
@@ -612,7 +640,7 @@ const graphData = {
   {
    "id": "The 80-20 Learning Method",
    "group": "14-Personal-Growth",
-   "degree": 6,
+   "degree": 7,
    "isHub": false,
    "path": "14-Personal-Growth/The 80-20 Learning Method.md"
   },
@@ -622,6 +650,13 @@ const graphData = {
    "degree": 6,
    "isHub": false,
    "path": "11-Finance-Risk/Principles-Book/The Five-Step Process.md"
+  },
+  {
+   "id": "Time Series Analysis",
+   "group": "02-Statistics",
+   "degree": 7,
+   "isHub": false,
+   "path": "02-Statistics/Time Series Analysis.md"
   },
   {
    "id": "Training and Recovery",
@@ -654,7 +689,7 @@ const graphData = {
   {
    "id": "Visualization Design Principles",
    "group": "07-Data-Visualization",
-   "degree": 4,
+   "degree": 5,
    "isHub": false,
    "path": "07-Data-Visualization/Visualization Design Principles.md"
   },
@@ -682,7 +717,7 @@ const graphData = {
   {
    "id": "🌌 Data Science Second Brain",
    "group": "00-Home",
-   "degree": 16,
+   "degree": 17,
    "isHub": true,
    "path": "00-Home/🌌 Data Science Second Brain.md"
   }
@@ -730,6 +765,10 @@ const graphData = {
   },
   {
    "source": "Programming and Tools MOC",
+   "target": "AI Agent Workflows"
+  },
+  {
+   "source": "Programming and Tools MOC",
    "target": "🌌 Data Science Second Brain"
   },
   {
@@ -753,6 +792,22 @@ const graphData = {
    "target": "Linear Algebra"
   },
   {
+   "source": "AI Agent Workflows",
+   "target": "Securities Qualification Exams"
+  },
+  {
+   "source": "AI Agent Workflows",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "AI Agent Workflows",
+   "target": "Large Language Models"
+  },
+  {
+   "source": "AI Agent Workflows",
+   "target": "The 80-20 Learning Method"
+  },
+  {
    "source": "Descriptive Statistics",
    "target": "Statistics MOC"
   },
@@ -767,6 +822,34 @@ const graphData = {
   {
    "source": "Descriptive Statistics",
    "target": "Pandas"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Pandas"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Matplotlib and Seaborn"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Data Cleaning"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Project Template"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Exploratory Data Analysis",
+   "target": "Visualization Design Principles"
   },
   {
    "source": "Experiment Design and AB Testing",
@@ -787,6 +870,34 @@ const graphData = {
   {
    "source": "Hypothesis Testing",
    "target": "Probability Theory"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Feature Engineering"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "RNNs and Sequence Models"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Quantitative Investing"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Regression Analysis"
+  },
+  {
+   "source": "Time Series Analysis",
+   "target": "Backtesting Rigor"
   },
   {
    "source": "Regression Analysis",
@@ -1541,6 +1652,22 @@ const graphData = {
    "target": "Model Evaluation and Tuning"
   },
   {
+   "source": "LaTeX and Academic Writing",
+   "target": "Degree Course Map"
+  },
+  {
+   "source": "LaTeX and Academic Writing",
+   "target": "English Speaking"
+  },
+  {
+   "source": "LaTeX and Academic Writing",
+   "target": "Academics MOC"
+  },
+  {
+   "source": "LaTeX and Academic Writing",
+   "target": "Mathematical Modeling MCM"
+  },
+  {
    "source": "Competition Strategy",
    "target": "Risk Metrics"
   },
@@ -1606,6 +1733,10 @@ const graphData = {
   },
   {
    "source": "Academics MOC",
+   "target": "Evaluation Models AHP TOPSIS"
+  },
+  {
+   "source": "Academics MOC",
    "target": "Competitive Programming"
   },
   {
@@ -1651,6 +1782,18 @@ const graphData = {
   {
    "source": "Career Plan",
    "target": "Deep Learning MOC"
+  },
+  {
+   "source": "Evaluation Models AHP TOPSIS",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Evaluation Models AHP TOPSIS",
+   "target": "Optimization"
+  },
+  {
+   "source": "Evaluation Models AHP TOPSIS",
+   "target": "Mathematical Modeling MCM"
   },
   {
    "source": "Kaggle Notes",
