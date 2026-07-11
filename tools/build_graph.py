@@ -55,7 +55,7 @@ for name, meta in sorted(notes.items()):
         "id": name,
         "group": meta["group"],
         "degree": degree.get(name, 0),
-        "isHub": "MOC" in name or "第二大脑" in name,
+        "isHub": "MOC" in name or "Second Brain" in name,
         "path": meta["path"],
     })
 

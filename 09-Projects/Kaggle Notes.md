@@ -1,0 +1,17 @@
+---
+tags: [项目, Kaggle]
+---
+# Kaggle Notes
+
+## 一句话概括
+最好的练兵场:真实数据 + 排行榜反馈 + 顶级选手的公开方案。
+
+## 核心要点
+- 入门三件套:Titanic(分类)、House Prices(回归)、Digit Recognizer(视觉)
+- 表格赛套路:EDA → 特征工程 → [[Decision Trees and Ensembles]](LGBM/XGB)→ 模型融合
+- 读 Top 方案的 Notebook 比自己闷头做收获更大
+- 本地 CV 与 LB 一致性:避免过拟合排行榜
+
+## 关联
+- 所属领域:[[Projects MOC]]
+- 相关笔记:[[Project Template]]、[[Feature Engineering]]

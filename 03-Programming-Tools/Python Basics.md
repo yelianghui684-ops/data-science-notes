@@ -1,0 +1,17 @@
+---
+tags: [编程, Python]
+---
+# Python Basics
+
+## 一句话概括
+数据科学的通用语言:简洁语法 + 最丰富的生态。
+
+## 核心要点
+- 数据结构:list / dict / set / tuple 的适用场景与复杂度
+- 列表推导式、生成器:内存友好的迭代
+- 函数式工具:lambda、map、装饰器
+- 虚拟环境:venv / conda / uv,项目隔离是好习惯
+
+## 关联
+- 所属领域:[[Programming and Tools MOC]]
+- 相关笔记:[[NumPy]]、[[Pandas]]、[[Development Environment]]

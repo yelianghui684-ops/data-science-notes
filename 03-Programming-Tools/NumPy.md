@@ -1,0 +1,17 @@
+---
+tags: [编程, Python, NumPy]
+---
+# NumPy
+
+## 一句话概括
+向量化计算的基石:用数组运算替代 for 循环,快百倍。
+
+## 核心要点
+- ndarray:同质多维数组;shape / dtype / stride
+- 广播机制:不同形状数组的自动对齐规则
+- 花式索引与布尔掩码
+- `np.linalg`:矩阵运算入口 → [[Linear Algebra]]
+
+## 关联
+- 所属领域:[[Programming and Tools MOC]]
+- 相关笔记:[[Pandas]]、[[Linear Algebra]]

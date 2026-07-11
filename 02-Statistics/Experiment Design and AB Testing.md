@@ -1,0 +1,17 @@
+---
+tags: [统计, 实验]
+---
+# Experiment Design and AB Testing
+
+## 一句话概括
+因果结论只能来自受控实验——AB 测试是业务中最常用的形式。
+
+## 核心要点
+- 随机分组消除混淆变量;样本量计算(功效分析)先于实验
+- 指标设计:北极星指标 vs 护栏指标
+- 常见坑:窥探问题(peeking)、辛普森悖论、新奇效应
+- 因果推断进阶:双重差分、倾向得分匹配
+
+## 关联
+- 所属领域:[[Statistics MOC]]
+- 相关笔记:[[Hypothesis Testing]]、[[Descriptive Statistics]]

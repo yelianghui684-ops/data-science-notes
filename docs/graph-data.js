@@ -1,74 +1,326 @@
 const graphData = {
  "nodes": [
   {
-   "id": "Git与版本控制",
-   "group": "03-编程与工具",
-   "degree": 4,
-   "isHub": false,
-   "path": "03-编程与工具/Git与版本控制.md"
-  },
-  {
-   "id": "KNN与朴素贝叶斯",
-   "group": "05-机器学习",
+   "id": "Advanced SQL",
+   "group": "04-Databases-SQL",
    "degree": 3,
    "isHub": false,
-   "path": "05-机器学习/KNN与朴素贝叶斯.md"
+   "path": "04-Databases-SQL/Advanced SQL.md"
   },
   {
-   "id": "Kaggle实战笔记",
-   "group": "09-项目实战",
+   "id": "Bayesian Statistics",
+   "group": "02-Statistics",
+   "degree": 4,
+   "isHub": false,
+   "path": "02-Statistics/Bayesian Statistics.md"
+  },
+  {
+   "id": "Big Data Frameworks",
+   "group": "08-Data-Engineering",
+   "degree": 4,
+   "isHub": false,
+   "path": "08-Data-Engineering/Big Data Frameworks.md"
+  },
+  {
+   "id": "Calculus",
+   "group": "01-Mathematics",
+   "degree": 4,
+   "isHub": false,
+   "path": "01-Mathematics/Calculus.md"
+  },
+  {
+   "id": "Clustering",
+   "group": "05-Machine-Learning",
+   "degree": 3,
+   "isHub": false,
+   "path": "05-Machine-Learning/Clustering.md"
+  },
+  {
+   "id": "Convolutional Neural Networks",
+   "group": "06-Deep-Learning",
+   "degree": 3,
+   "isHub": false,
+   "path": "06-Deep-Learning/Convolutional Neural Networks.md"
+  },
+  {
+   "id": "Data Cleaning",
+   "group": "08-Data-Engineering",
    "degree": 5,
    "isHub": false,
-   "path": "09-项目实战/Kaggle实战笔记.md"
+   "path": "08-Data-Engineering/Data Cleaning.md"
+  },
+  {
+   "id": "Data Engineering MOC",
+   "group": "08-Data-Engineering",
+   "degree": 5,
+   "isHub": true,
+   "path": "08-Data-Engineering/Data Engineering MOC.md"
+  },
+  {
+   "id": "Data Pipelines and ETL",
+   "group": "08-Data-Engineering",
+   "degree": 4,
+   "isHub": false,
+   "path": "08-Data-Engineering/Data Pipelines and ETL.md"
+  },
+  {
+   "id": "Data Visualization MOC",
+   "group": "07-Data-Visualization",
+   "degree": 4,
+   "isHub": true,
+   "path": "07-Data-Visualization/Data Visualization MOC.md"
+  },
+  {
+   "id": "Database Design",
+   "group": "04-Databases-SQL",
+   "degree": 4,
+   "isHub": false,
+   "path": "04-Databases-SQL/Database Design.md"
+  },
+  {
+   "id": "Databases and SQL MOC",
+   "group": "04-Databases-SQL",
+   "degree": 5,
+   "isHub": true,
+   "path": "04-Databases-SQL/Databases and SQL MOC.md"
+  },
+  {
+   "id": "Decision Trees and Ensembles",
+   "group": "05-Machine-Learning",
+   "degree": 4,
+   "isHub": false,
+   "path": "05-Machine-Learning/Decision Trees and Ensembles.md"
+  },
+  {
+   "id": "Deep Learning MOC",
+   "group": "06-Deep-Learning",
+   "degree": 7,
+   "isHub": true,
+   "path": "06-Deep-Learning/Deep Learning MOC.md"
+  },
+  {
+   "id": "Descriptive Statistics",
+   "group": "02-Statistics",
+   "degree": 9,
+   "isHub": false,
+   "path": "02-Statistics/Descriptive Statistics.md"
+  },
+  {
+   "id": "Development Environment",
+   "group": "03-Programming-Tools",
+   "degree": 4,
+   "isHub": false,
+   "path": "03-Programming-Tools/Development Environment.md"
+  },
+  {
+   "id": "Dimensionality Reduction",
+   "group": "05-Machine-Learning",
+   "degree": 5,
+   "isHub": false,
+   "path": "05-Machine-Learning/Dimensionality Reduction.md"
+  },
+  {
+   "id": "Experiment Design and AB Testing",
+   "group": "02-Statistics",
+   "degree": 3,
+   "isHub": false,
+   "path": "02-Statistics/Experiment Design and AB Testing.md"
+  },
+  {
+   "id": "Feature Engineering",
+   "group": "05-Machine-Learning",
+   "degree": 8,
+   "isHub": false,
+   "path": "05-Machine-Learning/Feature Engineering.md"
+  },
+  {
+   "id": "Git and Version Control",
+   "group": "03-Programming-Tools",
+   "degree": 4,
+   "isHub": false,
+   "path": "03-Programming-Tools/Git and Version Control.md"
+  },
+  {
+   "id": "Hypothesis Testing",
+   "group": "02-Statistics",
+   "degree": 6,
+   "isHub": false,
+   "path": "02-Statistics/Hypothesis Testing.md"
+  },
+  {
+   "id": "Information Theory",
+   "group": "01-Mathematics",
+   "degree": 6,
+   "isHub": false,
+   "path": "01-Mathematics/Information Theory.md"
+  },
+  {
+   "id": "Interactive Visualization",
+   "group": "07-Data-Visualization",
+   "degree": 3,
+   "isHub": false,
+   "path": "07-Data-Visualization/Interactive Visualization.md"
+  },
+  {
+   "id": "KNN and Naive Bayes",
+   "group": "05-Machine-Learning",
+   "degree": 3,
+   "isHub": false,
+   "path": "05-Machine-Learning/KNN and Naive Bayes.md"
+  },
+  {
+   "id": "Kaggle Notes",
+   "group": "09-Projects",
+   "degree": 5,
+   "isHub": false,
+   "path": "09-Projects/Kaggle Notes.md"
+  },
+  {
+   "id": "Large Language Models",
+   "group": "06-Deep-Learning",
+   "degree": 3,
+   "isHub": false,
+   "path": "06-Deep-Learning/Large Language Models.md"
+  },
+  {
+   "id": "Linear Algebra",
+   "group": "01-Mathematics",
+   "degree": 5,
+   "isHub": false,
+   "path": "01-Mathematics/Linear Algebra.md"
+  },
+  {
+   "id": "Linear Models",
+   "group": "05-Machine-Learning",
+   "degree": 6,
+   "isHub": false,
+   "path": "05-Machine-Learning/Linear Models.md"
   },
   {
    "id": "MLOps",
-   "group": "08-数据工程",
+   "group": "08-Data-Engineering",
    "degree": 5,
    "isHub": false,
-   "path": "08-数据工程/MLOps.md"
+   "path": "08-Data-Engineering/MLOps.md"
   },
   {
-   "id": "Matplotlib与Seaborn",
-   "group": "07-数据可视化",
+   "id": "Machine Learning MOC",
+   "group": "05-Machine-Learning",
+   "degree": 10,
+   "isHub": true,
+   "path": "05-Machine-Learning/Machine Learning MOC.md"
+  },
+  {
+   "id": "Mathematics MOC",
+   "group": "01-Mathematics",
+   "degree": 6,
+   "isHub": true,
+   "path": "01-Mathematics/Mathematics MOC.md"
+  },
+  {
+   "id": "Matplotlib and Seaborn",
+   "group": "07-Data-Visualization",
    "degree": 5,
    "isHub": false,
-   "path": "07-数据可视化/Matplotlib与Seaborn.md"
+   "path": "07-Data-Visualization/Matplotlib and Seaborn.md"
   },
   {
-   "id": "NoSQL概览",
-   "group": "04-数据库与SQL",
+   "id": "Model Evaluation and Tuning",
+   "group": "05-Machine-Learning",
+   "degree": 8,
+   "isHub": false,
+   "path": "05-Machine-Learning/Model Evaluation and Tuning.md"
+  },
+  {
+   "id": "Neural Network Basics",
+   "group": "06-Deep-Learning",
+   "degree": 8,
+   "isHub": false,
+   "path": "06-Deep-Learning/Neural Network Basics.md"
+  },
+  {
+   "id": "NoSQL Overview",
+   "group": "04-Databases-SQL",
    "degree": 3,
    "isHub": false,
-   "path": "04-数据库与SQL/NoSQL概览.md"
+   "path": "04-Databases-SQL/NoSQL Overview.md"
+  },
+  {
+   "id": "Note Template",
+   "group": "Templates",
+   "degree": 1,
+   "isHub": false,
+   "path": "Templates/Note Template.md"
   },
   {
    "id": "NumPy",
-   "group": "03-编程与工具",
+   "group": "03-Programming-Tools",
    "degree": 5,
    "isHub": false,
-   "path": "03-编程与工具/NumPy.md"
+   "path": "03-Programming-Tools/NumPy.md"
+  },
+  {
+   "id": "Optimization",
+   "group": "01-Mathematics",
+   "degree": 5,
+   "isHub": false,
+   "path": "01-Mathematics/Optimization.md"
   },
   {
    "id": "Pandas",
-   "group": "03-编程与工具",
+   "group": "03-Programming-Tools",
    "degree": 8,
    "isHub": false,
-   "path": "03-编程与工具/Pandas.md"
+   "path": "03-Programming-Tools/Pandas.md"
   },
   {
-   "id": "PyTorch实践",
-   "group": "06-深度学习",
+   "id": "Portfolio Building",
+   "group": "09-Projects",
    "degree": 4,
    "isHub": false,
-   "path": "06-深度学习/PyTorch实践.md"
+   "path": "09-Projects/Portfolio Building.md"
   },
   {
-   "id": "Python基础",
-   "group": "03-编程与工具",
+   "id": "Probability Theory",
+   "group": "01-Mathematics",
+   "degree": 6,
+   "isHub": false,
+   "path": "01-Mathematics/Probability Theory.md"
+  },
+  {
+   "id": "Programming and Tools MOC",
+   "group": "03-Programming-Tools",
+   "degree": 6,
+   "isHub": true,
+   "path": "03-Programming-Tools/Programming and Tools MOC.md"
+  },
+  {
+   "id": "Project Template",
+   "group": "09-Projects",
+   "degree": 10,
+   "isHub": false,
+   "path": "09-Projects/Project Template.md"
+  },
+  {
+   "id": "Projects MOC",
+   "group": "09-Projects",
+   "degree": 4,
+   "isHub": true,
+   "path": "09-Projects/Projects MOC.md"
+  },
+  {
+   "id": "PyTorch in Practice",
+   "group": "06-Deep-Learning",
    "degree": 4,
    "isHub": false,
-   "path": "03-编程与工具/Python基础.md"
+   "path": "06-Deep-Learning/PyTorch in Practice.md"
+  },
+  {
+   "id": "Python Basics",
+   "group": "03-Programming-Tools",
+   "degree": 4,
+   "isHub": false,
+   "path": "03-Programming-Tools/Python Basics.md"
   },
   {
    "id": "README",
@@ -78,861 +330,609 @@ const graphData = {
    "path": "README.md"
   },
   {
-   "id": "SQL核心语法",
-   "group": "04-数据库与SQL",
+   "id": "RNNs and Sequence Models",
+   "group": "06-Deep-Learning",
    "degree": 3,
    "isHub": false,
-   "path": "04-数据库与SQL/SQL核心语法.md"
+   "path": "06-Deep-Learning/RNNs and Sequence Models.md"
   },
   {
-   "id": "SQL进阶技巧",
-   "group": "04-数据库与SQL",
+   "id": "Regression Analysis",
+   "group": "02-Statistics",
    "degree": 3,
    "isHub": false,
-   "path": "04-数据库与SQL/SQL进阶技巧.md"
+   "path": "02-Statistics/Regression Analysis.md"
   },
   {
-   "id": "Transformer与注意力机制",
-   "group": "06-深度学习",
+   "id": "SQL Fundamentals",
+   "group": "04-Databases-SQL",
    "degree": 3,
    "isHub": false,
-   "path": "06-深度学习/Transformer与注意力机制.md"
+   "path": "04-Databases-SQL/SQL Fundamentals.md"
   },
   {
-   "id": "交互式可视化",
-   "group": "07-数据可视化",
-   "degree": 3,
-   "isHub": false,
-   "path": "07-数据可视化/交互式可视化.md"
-  },
-  {
-   "id": "作品集建设",
-   "group": "09-项目实战",
-   "degree": 4,
-   "isHub": false,
-   "path": "09-项目实战/作品集建设.md"
-  },
-  {
-   "id": "信息论基础",
-   "group": "01-数学基础",
-   "degree": 6,
-   "isHub": false,
-   "path": "01-数学基础/信息论基础.md"
-  },
-  {
-   "id": "假设检验",
-   "group": "02-统计学",
-   "degree": 6,
-   "isHub": false,
-   "path": "02-统计学/假设检验.md"
-  },
-  {
-   "id": "决策树与集成学习",
-   "group": "05-机器学习",
-   "degree": 4,
-   "isHub": false,
-   "path": "05-机器学习/决策树与集成学习.md"
-  },
-  {
-   "id": "卷积神经网络CNN",
-   "group": "06-深度学习",
-   "degree": 3,
-   "isHub": false,
-   "path": "06-深度学习/卷积神经网络CNN.md"
-  },
-  {
-   "id": "可视化设计原则",
-   "group": "07-数据可视化",
-   "degree": 4,
-   "isHub": false,
-   "path": "07-数据可视化/可视化设计原则.md"
-  },
-  {
-   "id": "回归分析",
-   "group": "02-统计学",
-   "degree": 3,
-   "isHub": false,
-   "path": "02-统计学/回归分析.md"
-  },
-  {
-   "id": "大数据框架",
-   "group": "08-数据工程",
-   "degree": 4,
-   "isHub": false,
-   "path": "08-数据工程/大数据框架.md"
-  },
-  {
-   "id": "大语言模型LLM",
-   "group": "06-深度学习",
-   "degree": 3,
-   "isHub": false,
-   "path": "06-深度学习/大语言模型LLM.md"
-  },
-  {
-   "id": "实验设计与AB测试",
-   "group": "02-统计学",
-   "degree": 3,
-   "isHub": false,
-   "path": "02-统计学/实验设计与AB测试.md"
-  },
-  {
-   "id": "开发环境配置",
-   "group": "03-编程与工具",
-   "degree": 4,
-   "isHub": false,
-   "path": "03-编程与工具/开发环境配置.md"
-  },
-  {
-   "id": "循环网络与序列模型",
-   "group": "06-深度学习",
-   "degree": 3,
-   "isHub": false,
-   "path": "06-深度学习/循环网络与序列模型.md"
-  },
-  {
-   "id": "微积分",
-   "group": "01-数学基础",
-   "degree": 4,
-   "isHub": false,
-   "path": "01-数学基础/微积分.md"
-  },
-  {
-   "id": "描述统计",
-   "group": "02-统计学",
-   "degree": 9,
-   "isHub": false,
-   "path": "02-统计学/描述统计.md"
-  },
-  {
-   "id": "支持向量机",
-   "group": "05-机器学习",
-   "degree": 3,
-   "isHub": false,
-   "path": "05-机器学习/支持向量机.md"
-  },
-  {
-   "id": "数学基础 MOC",
-   "group": "01-数学基础",
+   "id": "Statistics MOC",
+   "group": "02-Statistics",
    "degree": 6,
    "isHub": true,
-   "path": "01-数学基础/数学基础 MOC.md"
+   "path": "02-Statistics/Statistics MOC.md"
   },
   {
-   "id": "数据可视化 MOC",
-   "group": "07-数据可视化",
-   "degree": 4,
-   "isHub": true,
-   "path": "07-数据可视化/数据可视化 MOC.md"
-  },
-  {
-   "id": "数据工程 MOC",
-   "group": "08-数据工程",
-   "degree": 5,
-   "isHub": true,
-   "path": "08-数据工程/数据工程 MOC.md"
-  },
-  {
-   "id": "数据库与SQL MOC",
-   "group": "04-数据库与SQL",
-   "degree": 5,
-   "isHub": true,
-   "path": "04-数据库与SQL/数据库与SQL MOC.md"
-  },
-  {
-   "id": "数据库设计",
-   "group": "04-数据库与SQL",
+   "id": "Supervised Learning Overview",
+   "group": "05-Machine-Learning",
    "degree": 4,
    "isHub": false,
-   "path": "04-数据库与SQL/数据库设计.md"
+   "path": "05-Machine-Learning/Supervised Learning Overview.md"
   },
   {
-   "id": "数据清洗流程",
-   "group": "08-数据工程",
-   "degree": 5,
+   "id": "Support Vector Machines",
+   "group": "05-Machine-Learning",
+   "degree": 3,
    "isHub": false,
-   "path": "08-数据工程/数据清洗流程.md"
+   "path": "05-Machine-Learning/Support Vector Machines.md"
   },
   {
-   "id": "数据管道ETL",
-   "group": "08-数据工程",
+   "id": "Transformers and Attention",
+   "group": "06-Deep-Learning",
+   "degree": 3,
+   "isHub": false,
+   "path": "06-Deep-Learning/Transformers and Attention.md"
+  },
+  {
+   "id": "Visualization Design Principles",
+   "group": "07-Data-Visualization",
    "degree": 4,
    "isHub": false,
-   "path": "08-数据工程/数据管道ETL.md"
+   "path": "07-Data-Visualization/Visualization Design Principles.md"
   },
   {
-   "id": "最优化方法",
-   "group": "01-数学基础",
-   "degree": 5,
-   "isHub": false,
-   "path": "01-数学基础/最优化方法.md"
-  },
-  {
-   "id": "机器学习 MOC",
-   "group": "05-机器学习",
+   "id": "🌌 Data Science Second Brain",
+   "group": "00-Home",
    "degree": 10,
    "isHub": true,
-   "path": "05-机器学习/机器学习 MOC.md"
-  },
-  {
-   "id": "概率论",
-   "group": "01-数学基础",
-   "degree": 6,
-   "isHub": false,
-   "path": "01-数学基础/概率论.md"
-  },
-  {
-   "id": "模型评估与调参",
-   "group": "05-机器学习",
-   "degree": 8,
-   "isHub": false,
-   "path": "05-机器学习/模型评估与调参.md"
-  },
-  {
-   "id": "深度学习 MOC",
-   "group": "06-深度学习",
-   "degree": 7,
-   "isHub": true,
-   "path": "06-深度学习/深度学习 MOC.md"
-  },
-  {
-   "id": "特征工程",
-   "group": "05-机器学习",
-   "degree": 8,
-   "isHub": false,
-   "path": "05-机器学习/特征工程.md"
-  },
-  {
-   "id": "监督学习概览",
-   "group": "05-机器学习",
-   "degree": 4,
-   "isHub": false,
-   "path": "05-机器学习/监督学习概览.md"
-  },
-  {
-   "id": "神经网络基础",
-   "group": "06-深度学习",
-   "degree": 8,
-   "isHub": false,
-   "path": "06-深度学习/神经网络基础.md"
-  },
-  {
-   "id": "笔记模板",
-   "group": "模板",
-   "degree": 1,
-   "isHub": false,
-   "path": "模板/笔记模板.md"
-  },
-  {
-   "id": "线性代数",
-   "group": "01-数学基础",
-   "degree": 5,
-   "isHub": false,
-   "path": "01-数学基础/线性代数.md"
-  },
-  {
-   "id": "线性模型",
-   "group": "05-机器学习",
-   "degree": 6,
-   "isHub": false,
-   "path": "05-机器学习/线性模型.md"
-  },
-  {
-   "id": "统计学 MOC",
-   "group": "02-统计学",
-   "degree": 6,
-   "isHub": true,
-   "path": "02-统计学/统计学 MOC.md"
-  },
-  {
-   "id": "编程与工具 MOC",
-   "group": "03-编程与工具",
-   "degree": 6,
-   "isHub": true,
-   "path": "03-编程与工具/编程与工具 MOC.md"
-  },
-  {
-   "id": "聚类",
-   "group": "05-机器学习",
-   "degree": 3,
-   "isHub": false,
-   "path": "05-机器学习/聚类.md"
-  },
-  {
-   "id": "贝叶斯统计",
-   "group": "02-统计学",
-   "degree": 4,
-   "isHub": false,
-   "path": "02-统计学/贝叶斯统计.md"
-  },
-  {
-   "id": "降维",
-   "group": "05-机器学习",
-   "degree": 5,
-   "isHub": false,
-   "path": "05-机器学习/降维.md"
-  },
-  {
-   "id": "项目实战 MOC",
-   "group": "09-项目实战",
-   "degree": 4,
-   "isHub": true,
-   "path": "09-项目实战/项目实战 MOC.md"
-  },
-  {
-   "id": "项目模板",
-   "group": "09-项目实战",
-   "degree": 10,
-   "isHub": false,
-   "path": "09-项目实战/项目模板.md"
-  },
-  {
-   "id": "🌌 数据科学第二大脑",
-   "group": "00-首页",
-   "degree": 10,
-   "isHub": true,
-   "path": "00-首页/🌌 数据科学第二大脑.md"
+   "path": "00-Home/🌌 Data Science Second Brain.md"
   }
  ],
  "links": [
   {
-   "source": "数据工程 MOC",
-   "target": "数据清洗流程"
+   "source": "Python Basics",
+   "target": "Programming and Tools MOC"
   },
   {
-   "source": "数据工程 MOC",
-   "target": "数据管道ETL"
+   "source": "Python Basics",
+   "target": "NumPy"
   },
   {
-   "source": "数据工程 MOC",
-   "target": "大数据框架"
+   "source": "Python Basics",
+   "target": "Pandas"
   },
   {
-   "source": "数据工程 MOC",
+   "source": "Python Basics",
+   "target": "Development Environment"
+  },
+  {
+   "source": "Git and Version Control",
+   "target": "Programming and Tools MOC"
+  },
+  {
+   "source": "Git and Version Control",
+   "target": "Development Environment"
+  },
+  {
+   "source": "Git and Version Control",
    "target": "MLOps"
   },
   {
-   "source": "数据工程 MOC",
-   "target": "🌌 数据科学第二大脑"
-  },
-  {
-   "source": "数据管道ETL",
-   "target": "SQL进阶技巧"
-  },
-  {
-   "source": "数据管道ETL",
-   "target": "数据库设计"
-  },
-  {
-   "source": "数据管道ETL",
-   "target": "大数据框架"
-  },
-  {
-   "source": "大数据框架",
-   "target": "NoSQL概览"
-  },
-  {
-   "source": "数据清洗流程",
-   "target": "Pandas"
-  },
-  {
-   "source": "数据清洗流程",
-   "target": "特征工程"
-  },
-  {
-   "source": "数据清洗流程",
-   "target": "描述统计"
-  },
-  {
-   "source": "MLOps",
-   "target": "Git与版本控制"
-  },
-  {
-   "source": "MLOps",
-   "target": "开发环境配置"
-  },
-  {
-   "source": "MLOps",
-   "target": "模型评估与调参"
-  },
-  {
-   "source": "交互式可视化",
-   "target": "数据可视化 MOC"
-  },
-  {
-   "source": "交互式可视化",
-   "target": "可视化设计原则"
-  },
-  {
-   "source": "交互式可视化",
-   "target": "降维"
-  },
-  {
-   "source": "Matplotlib与Seaborn",
-   "target": "Pandas"
-  },
-  {
-   "source": "Matplotlib与Seaborn",
-   "target": "数据可视化 MOC"
-  },
-  {
-   "source": "Matplotlib与Seaborn",
-   "target": "可视化设计原则"
-  },
-  {
-   "source": "数据可视化 MOC",
-   "target": "可视化设计原则"
-  },
-  {
-   "source": "数据可视化 MOC",
-   "target": "🌌 数据科学第二大脑"
-  },
-  {
-   "source": "可视化设计原则",
-   "target": "描述统计"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "线性代数"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "微积分"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "概率论"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "最优化方法"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "信息论基础"
-  },
-  {
-   "source": "数学基础 MOC",
-   "target": "🌌 数据科学第二大脑"
-  },
-  {
-   "source": "线性代数",
-   "target": "降维"
-  },
-  {
-   "source": "线性代数",
+   "source": "Programming and Tools MOC",
    "target": "NumPy"
   },
   {
-   "source": "线性代数",
-   "target": "线性模型"
-  },
-  {
-   "source": "线性代数",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "最优化方法",
-   "target": "微积分"
-  },
-  {
-   "source": "最优化方法",
-   "target": "线性模型"
-  },
-  {
-   "source": "最优化方法",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "信息论基础",
-   "target": "决策树与集成学习"
-  },
-  {
-   "source": "信息论基础",
-   "target": "特征工程"
-  },
-  {
-   "source": "信息论基础",
-   "target": "概率论"
-  },
-  {
-   "source": "信息论基础",
-   "target": "模型评估与调参"
-  },
-  {
-   "source": "微积分",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "微积分",
-   "target": "概率论"
-  },
-  {
-   "source": "概率论",
-   "target": "贝叶斯统计"
-  },
-  {
-   "source": "概率论",
-   "target": "描述统计"
-  },
-  {
-   "source": "概率论",
-   "target": "假设检验"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "统计学 MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "编程与工具 MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "数据库与SQL MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "深度学习 MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "项目实战 MOC"
-  },
-  {
-   "source": "🌌 数据科学第二大脑",
-   "target": "笔记模板"
-  },
-  {
-   "source": "KNN与朴素贝叶斯",
-   "target": "降维"
-  },
-  {
-   "source": "KNN与朴素贝叶斯",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "KNN与朴素贝叶斯",
-   "target": "贝叶斯统计"
-  },
-  {
-   "source": "监督学习概览",
-   "target": "线性模型"
-  },
-  {
-   "source": "监督学习概览",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "监督学习概览",
-   "target": "模型评估与调参"
-  },
-  {
-   "source": "监督学习概览",
-   "target": "特征工程"
-  },
-  {
-   "source": "模型评估与调参",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "模型评估与调参",
-   "target": "假设检验"
-  },
-  {
-   "source": "决策树与集成学习",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "决策树与集成学习",
-   "target": "模型评估与调参"
-  },
-  {
-   "source": "决策树与集成学习",
-   "target": "Kaggle实战笔记"
-  },
-  {
-   "source": "降维",
-   "target": "机器学习 MOC"
-  },
-  {
-   "source": "降维",
-   "target": "聚类"
-  },
-  {
-   "source": "机器学习 MOC",
-   "target": "特征工程"
-  },
-  {
-   "source": "机器学习 MOC",
-   "target": "线性模型"
-  },
-  {
-   "source": "机器学习 MOC",
-   "target": "支持向量机"
-  },
-  {
-   "source": "机器学习 MOC",
-   "target": "聚类"
-  },
-  {
-   "source": "线性模型",
-   "target": "回归分析"
-  },
-  {
-   "source": "特征工程",
+   "source": "Programming and Tools MOC",
    "target": "Pandas"
   },
   {
-   "source": "特征工程",
-   "target": "模型评估与调参"
+   "source": "Programming and Tools MOC",
+   "target": "Development Environment"
   },
   {
-   "source": "聚类",
-   "target": "描述统计"
-  },
-  {
-   "source": "支持向量机",
-   "target": "线性模型"
-  },
-  {
-   "source": "支持向量机",
-   "target": "最优化方法"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "卷积神经网络CNN"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "循环网络与序列模型"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "Transformer与注意力机制"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "大语言模型LLM"
-  },
-  {
-   "source": "深度学习 MOC",
-   "target": "PyTorch实践"
-  },
-  {
-   "source": "大语言模型LLM",
-   "target": "Transformer与注意力机制"
-  },
-  {
-   "source": "大语言模型LLM",
-   "target": "项目模板"
-  },
-  {
-   "source": "卷积神经网络CNN",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "卷积神经网络CNN",
-   "target": "PyTorch实践"
-  },
-  {
-   "source": "神经网络基础",
-   "target": "信息论基础"
-  },
-  {
-   "source": "神经网络基础",
-   "target": "PyTorch实践"
-  },
-  {
-   "source": "Transformer与注意力机制",
-   "target": "循环网络与序列模型"
-  },
-  {
-   "source": "循环网络与序列模型",
-   "target": "神经网络基础"
-  },
-  {
-   "source": "PyTorch实践",
-   "target": "NumPy"
-  },
-  {
-   "source": "SQL核心语法",
-   "target": "数据库与SQL MOC"
-  },
-  {
-   "source": "SQL核心语法",
-   "target": "SQL进阶技巧"
-  },
-  {
-   "source": "SQL核心语法",
-   "target": "Pandas"
-  },
-  {
-   "source": "数据库设计",
-   "target": "数据库与SQL MOC"
-  },
-  {
-   "source": "数据库设计",
-   "target": "大数据框架"
-  },
-  {
-   "source": "数据库与SQL MOC",
-   "target": "SQL进阶技巧"
-  },
-  {
-   "source": "数据库与SQL MOC",
-   "target": "NoSQL概览"
-  },
-  {
-   "source": "NoSQL概览",
-   "target": "数据库设计"
-  },
-  {
-   "source": "项目实战 MOC",
-   "target": "项目模板"
-  },
-  {
-   "source": "项目实战 MOC",
-   "target": "Kaggle实战笔记"
-  },
-  {
-   "source": "项目实战 MOC",
-   "target": "作品集建设"
-  },
-  {
-   "source": "项目模板",
-   "target": "描述统计"
-  },
-  {
-   "source": "项目模板",
-   "target": "Matplotlib与Seaborn"
-  },
-  {
-   "source": "项目模板",
-   "target": "数据清洗流程"
-  },
-  {
-   "source": "项目模板",
-   "target": "特征工程"
-  },
-  {
-   "source": "项目模板",
-   "target": "模型评估与调参"
-  },
-  {
-   "source": "项目模板",
-   "target": "MLOps"
-  },
-  {
-   "source": "项目模板",
-   "target": "Kaggle实战笔记"
-  },
-  {
-   "source": "项目模板",
-   "target": "作品集建设"
-  },
-  {
-   "source": "Kaggle实战笔记",
-   "target": "特征工程"
-  },
-  {
-   "source": "作品集建设",
-   "target": "Git与版本控制"
-  },
-  {
-   "source": "作品集建设",
-   "target": "Kaggle实战笔记"
-  },
-  {
-   "source": "贝叶斯统计",
-   "target": "统计学 MOC"
-  },
-  {
-   "source": "贝叶斯统计",
-   "target": "假设检验"
-  },
-  {
-   "source": "回归分析",
-   "target": "统计学 MOC"
-  },
-  {
-   "source": "回归分析",
-   "target": "假设检验"
-  },
-  {
-   "source": "假设检验",
-   "target": "统计学 MOC"
-  },
-  {
-   "source": "假设检验",
-   "target": "实验设计与AB测试"
-  },
-  {
-   "source": "统计学 MOC",
-   "target": "描述统计"
-  },
-  {
-   "source": "统计学 MOC",
-   "target": "实验设计与AB测试"
-  },
-  {
-   "source": "实验设计与AB测试",
-   "target": "描述统计"
-  },
-  {
-   "source": "描述统计",
-   "target": "Matplotlib与Seaborn"
-  },
-  {
-   "source": "描述统计",
-   "target": "Pandas"
-  },
-  {
-   "source": "Python基础",
-   "target": "编程与工具 MOC"
-  },
-  {
-   "source": "Python基础",
-   "target": "NumPy"
-  },
-  {
-   "source": "Python基础",
-   "target": "Pandas"
-  },
-  {
-   "source": "Python基础",
-   "target": "开发环境配置"
-  },
-  {
-   "source": "Pandas",
-   "target": "编程与工具 MOC"
+   "source": "Programming and Tools MOC",
+   "target": "🌌 Data Science Second Brain"
   },
   {
    "source": "Pandas",
    "target": "NumPy"
   },
   {
-   "source": "编程与工具 MOC",
+   "source": "Pandas",
+   "target": "SQL Fundamentals"
+  },
+  {
+   "source": "Pandas",
+   "target": "Data Cleaning"
+  },
+  {
+   "source": "Development Environment",
+   "target": "MLOps"
+  },
+  {
+   "source": "NumPy",
+   "target": "Linear Algebra"
+  },
+  {
+   "source": "Descriptive Statistics",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Descriptive Statistics",
+   "target": "Probability Theory"
+  },
+  {
+   "source": "Descriptive Statistics",
+   "target": "Matplotlib and Seaborn"
+  },
+  {
+   "source": "Descriptive Statistics",
+   "target": "Pandas"
+  },
+  {
+   "source": "Experiment Design and AB Testing",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Experiment Design and AB Testing",
+   "target": "Hypothesis Testing"
+  },
+  {
+   "source": "Experiment Design and AB Testing",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "Hypothesis Testing",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Hypothesis Testing",
+   "target": "Probability Theory"
+  },
+  {
+   "source": "Regression Analysis",
+   "target": "Linear Models"
+  },
+  {
+   "source": "Regression Analysis",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Regression Analysis",
+   "target": "Hypothesis Testing"
+  },
+  {
+   "source": "Bayesian Statistics",
+   "target": "Statistics MOC"
+  },
+  {
+   "source": "Bayesian Statistics",
+   "target": "Probability Theory"
+  },
+  {
+   "source": "Bayesian Statistics",
+   "target": "Hypothesis Testing"
+  },
+  {
+   "source": "Statistics MOC",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Advanced SQL",
+   "target": "Databases and SQL MOC"
+  },
+  {
+   "source": "Advanced SQL",
+   "target": "SQL Fundamentals"
+  },
+  {
+   "source": "Advanced SQL",
+   "target": "Data Pipelines and ETL"
+  },
+  {
+   "source": "NoSQL Overview",
+   "target": "Databases and SQL MOC"
+  },
+  {
+   "source": "NoSQL Overview",
+   "target": "Database Design"
+  },
+  {
+   "source": "NoSQL Overview",
+   "target": "Big Data Frameworks"
+  },
+  {
+   "source": "Database Design",
+   "target": "Databases and SQL MOC"
+  },
+  {
+   "source": "Database Design",
+   "target": "Data Pipelines and ETL"
+  },
+  {
+   "source": "Database Design",
+   "target": "Big Data Frameworks"
+  },
+  {
+   "source": "SQL Fundamentals",
+   "target": "Databases and SQL MOC"
+  },
+  {
+   "source": "Databases and SQL MOC",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "Linear Algebra"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "Calculus"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "Deep Learning MOC"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "Optimization"
+  },
+  {
+   "source": "Neural Network Basics",
+   "target": "PyTorch in Practice"
+  },
+  {
+   "source": "PyTorch in Practice",
+   "target": "Deep Learning MOC"
+  },
+  {
+   "source": "PyTorch in Practice",
    "target": "NumPy"
   },
   {
-   "source": "编程与工具 MOC",
-   "target": "Git与版本控制"
+   "source": "Deep Learning MOC",
+   "target": "Convolutional Neural Networks"
   },
   {
-   "source": "编程与工具 MOC",
-   "target": "开发环境配置"
+   "source": "Deep Learning MOC",
+   "target": "RNNs and Sequence Models"
   },
   {
-   "source": "开发环境配置",
-   "target": "Git与版本控制"
+   "source": "Deep Learning MOC",
+   "target": "Transformers and Attention"
+  },
+  {
+   "source": "Deep Learning MOC",
+   "target": "Large Language Models"
+  },
+  {
+   "source": "Deep Learning MOC",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Transformers and Attention",
+   "target": "Large Language Models"
+  },
+  {
+   "source": "Transformers and Attention",
+   "target": "RNNs and Sequence Models"
+  },
+  {
+   "source": "Large Language Models",
+   "target": "Project Template"
+  },
+  {
+   "source": "RNNs and Sequence Models",
+   "target": "Neural Network Basics"
+  },
+  {
+   "source": "Convolutional Neural Networks",
+   "target": "Neural Network Basics"
+  },
+  {
+   "source": "Convolutional Neural Networks",
+   "target": "PyTorch in Practice"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Supervised Learning Overview"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Feature Engineering"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Linear Models"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Decision Trees and Ensembles"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Support Vector Machines"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "KNN and Naive Bayes"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Clustering"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "Dimensionality Reduction"
+  },
+  {
+   "source": "Machine Learning MOC",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Dimensionality Reduction",
+   "target": "Linear Algebra"
+  },
+  {
+   "source": "Dimensionality Reduction",
+   "target": "Clustering"
+  },
+  {
+   "source": "Dimensionality Reduction",
+   "target": "Interactive Visualization"
+  },
+  {
+   "source": "Support Vector Machines",
+   "target": "Linear Models"
+  },
+  {
+   "source": "Support Vector Machines",
+   "target": "Optimization"
+  },
+  {
+   "source": "Feature Engineering",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Feature Engineering",
+   "target": "Data Cleaning"
+  },
+  {
+   "source": "Feature Engineering",
+   "target": "Pandas"
+  },
+  {
+   "source": "Feature Engineering",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Clustering",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "Decision Trees and Ensembles",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Decision Trees and Ensembles",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Decision Trees and Ensembles",
+   "target": "Kaggle Notes"
+  },
+  {
+   "source": "Model Evaluation and Tuning",
+   "target": "Supervised Learning Overview"
+  },
+  {
+   "source": "Model Evaluation and Tuning",
+   "target": "Hypothesis Testing"
+  },
+  {
+   "source": "Model Evaluation and Tuning",
+   "target": "Information Theory"
+  },
+  {
+   "source": "KNN and Naive Bayes",
+   "target": "Dimensionality Reduction"
+  },
+  {
+   "source": "KNN and Naive Bayes",
+   "target": "Bayesian Statistics"
+  },
+  {
+   "source": "Linear Models",
+   "target": "Optimization"
+  },
+  {
+   "source": "Linear Models",
+   "target": "Linear Algebra"
+  },
+  {
+   "source": "Supervised Learning Overview",
+   "target": "Linear Models"
+  },
+  {
+   "source": "Supervised Learning Overview",
+   "target": "Feature Engineering"
+  },
+  {
+   "source": "Matplotlib and Seaborn",
+   "target": "Pandas"
+  },
+  {
+   "source": "Matplotlib and Seaborn",
+   "target": "Data Visualization MOC"
+  },
+  {
+   "source": "Matplotlib and Seaborn",
+   "target": "Visualization Design Principles"
+  },
+  {
+   "source": "Interactive Visualization",
+   "target": "Data Visualization MOC"
+  },
+  {
+   "source": "Interactive Visualization",
+   "target": "Visualization Design Principles"
+  },
+  {
+   "source": "Data Visualization MOC",
+   "target": "Visualization Design Principles"
+  },
+  {
+   "source": "Data Visualization MOC",
+   "target": "🌌 Data Science Second Brain"
+  },
+  {
+   "source": "Visualization Design Principles",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "🌌 Data Science Second Brain",
+   "target": "Mathematics MOC"
+  },
+  {
+   "source": "🌌 Data Science Second Brain",
+   "target": "Data Engineering MOC"
+  },
+  {
+   "source": "🌌 Data Science Second Brain",
+   "target": "Projects MOC"
+  },
+  {
+   "source": "🌌 Data Science Second Brain",
+   "target": "Note Template"
+  },
+  {
+   "source": "Data Cleaning",
+   "target": "Data Engineering MOC"
+  },
+  {
+   "source": "Data Cleaning",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "Data Engineering MOC",
+   "target": "Data Pipelines and ETL"
+  },
+  {
+   "source": "Data Engineering MOC",
+   "target": "Big Data Frameworks"
+  },
+  {
+   "source": "Data Engineering MOC",
+   "target": "MLOps"
+  },
+  {
+   "source": "Data Pipelines and ETL",
+   "target": "Big Data Frameworks"
+  },
+  {
+   "source": "MLOps",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Kaggle Notes",
+   "target": "Projects MOC"
+  },
+  {
+   "source": "Kaggle Notes",
+   "target": "Project Template"
+  },
+  {
+   "source": "Kaggle Notes",
+   "target": "Feature Engineering"
+  },
+  {
+   "source": "Projects MOC",
+   "target": "Project Template"
+  },
+  {
+   "source": "Projects MOC",
+   "target": "Portfolio Building"
+  },
+  {
+   "source": "Portfolio Building",
+   "target": "Git and Version Control"
+  },
+  {
+   "source": "Portfolio Building",
+   "target": "Project Template"
+  },
+  {
+   "source": "Portfolio Building",
+   "target": "Kaggle Notes"
+  },
+  {
+   "source": "Project Template",
+   "target": "Descriptive Statistics"
+  },
+  {
+   "source": "Project Template",
+   "target": "Matplotlib and Seaborn"
+  },
+  {
+   "source": "Project Template",
+   "target": "Data Cleaning"
+  },
+  {
+   "source": "Project Template",
+   "target": "Feature Engineering"
+  },
+  {
+   "source": "Project Template",
+   "target": "Model Evaluation and Tuning"
+  },
+  {
+   "source": "Project Template",
+   "target": "MLOps"
+  },
+  {
+   "source": "Probability Theory",
+   "target": "Mathematics MOC"
+  },
+  {
+   "source": "Probability Theory",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Mathematics MOC",
+   "target": "Linear Algebra"
+  },
+  {
+   "source": "Mathematics MOC",
+   "target": "Calculus"
+  },
+  {
+   "source": "Mathematics MOC",
+   "target": "Optimization"
+  },
+  {
+   "source": "Mathematics MOC",
+   "target": "Information Theory"
+  },
+  {
+   "source": "Optimization",
+   "target": "Calculus"
+  },
+  {
+   "source": "Calculus",
+   "target": "Probability Theory"
   }
  ]
 };
