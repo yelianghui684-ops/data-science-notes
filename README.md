@@ -4,6 +4,15 @@ An Obsidian-based knowledge network: **one central hub → 14 domain MOCs → 80
 
 用 Obsidian 构建的知识网络:1 个中心首页 → 14 大领域枢纽(MOC)→ 80+ 主题笔记,双链互联形成星状知识图谱 — 覆盖数据科学课程体系,以及学业、金融风控、Web3、中医、个人成长。
 
+## 🚀 Quick Access / 快速入口
+
+| 入口 | 方式 |
+|------|------|
+| 🖥 一键打开(图谱 + Obsidian) | 双击桌面 `Second Brain.command` |
+| 🟣 打开 Obsidian 库 | [obsidian://open?vault=data-science-notes](obsidian://open?vault=data-science-notes) |
+| 🌐 在线图谱 | 图谱页右上角工具栏可直达 Obsidian / GitHub |
+| ✏️ 编辑任意笔记 | 图谱中**单击节点** → 弹出卡片选「Obsidian 编辑 / GitHub 编辑 / GitHub 查看」 |
+
 ## 🪐 Knowledge Graph / 星状知识图谱
 
 - **Online**: enable GitHub Pages (Settings → Pages → Deploy from branch → `main` `/docs`), then visit

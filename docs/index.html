@@ -8,16 +8,17 @@
   html, body { margin: 0; height: 100%; background: #fdfdfc; overflow: hidden;
     font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
   #graph { width: 100%; height: 100%; }
-  #panel {
-    position: absolute; top: 16px; left: 16px; z-index: 10;
-    background: rgba(255, 255, 255, .88); backdrop-filter: blur(8px);
+  .panel {
+    position: absolute; z-index: 10;
+    background: rgba(255, 255, 255, .9); backdrop-filter: blur(8px);
     border: 1px solid #e4e4e0; border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0,0,0,.06);
-    padding: 14px 16px; color: #333; max-width: 250px;
+    padding: 14px 16px; color: #333;
   }
+  #panel { top: 16px; left: 16px; max-width: 250px; }
   #panel h1 { font-size: 15px; margin: 0 0 6px; color: #1a1a1a; }
   #panel p { font-size: 12px; margin: 4px 0; line-height: 1.5; color: #888; }
-  #legend { margin-top: 8px; font-size: 12px; max-height: 46vh; overflow-y: auto; }
+  #legend { margin-top: 8px; font-size: 12px; max-height: 40vh; overflow-y: auto; }
   .lg { display: flex; align-items: center; gap: 6px; margin: 3px 0; cursor: pointer; opacity: .85; }
   .lg:hover, .lg.on { opacity: 1; }
   .lg.on { font-weight: 600; }
@@ -28,24 +29,56 @@
     border-radius: 8px; padding: 6px 10px; color: #333; font-size: 13px; outline: none;
   }
   #search:focus { border-color: #aaa; }
-  #tip { position: absolute; bottom: 14px; left: 16px; z-index: 10;
-    color: #aaa; font-size: 11px; }
+  #toolbar { top: 16px; right: 16px; padding: 8px 10px; display: flex; gap: 8px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 12px; color: #333;
+    background: #f4f4f2; border: 1px solid #ddd; border-radius: 8px;
+    padding: 5px 10px; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { background: #ebebe8; border-color: #bbb; }
+  #card { top: 64px; right: 16px; width: 230px; display: none; }
+  #card b { font-size: 14px; color: #1a1a1a; display: block; margin-bottom: 2px; }
+  #card .grp { font-size: 11px; color: #999; margin-bottom: 10px; }
+  #card .btn { display: block; text-align: center; margin-top: 6px; }
+  #cardClose { position: absolute; top: 8px; right: 10px; cursor: pointer; color: #aaa; font-size: 14px; }
+  #cardClose:hover { color: #333; }
+  #tip { position: absolute; bottom: 14px; left: 16px; z-index: 10; color: #aaa; font-size: 11px; }
 </style>
 </head>
 <body>
 <div id="graph"></div>
-<div id="panel">
+
+<div id="panel" class="panel">
   <h1>关系图谱 · Second Brain</h1>
   <p id="stats"></p>
   <input id="search" placeholder="🔍 Search notes…" />
   <div id="legend"></div>
 </div>
-<div id="tip">Drag to pan · Scroll to zoom · Click to focus · Double-click to open in Obsidian</div>
+
+<div id="toolbar" class="panel">
+  <a class="btn" id="tbObsidian" href="#">🟣 打开 Obsidian 库</a>
+  <a class="btn" href="https://github.com/yelianghui684-ops/data-science-notes" target="_blank">🐙 GitHub 仓库</a>
+</div>
+
+<div id="card" class="panel">
+  <span id="cardClose">✕</span>
+  <b id="cardTitle"></b>
+  <div class="grp" id="cardGroup"></div>
+  <a class="btn" id="cardObsidian" href="#">📝 在 Obsidian 中编辑</a>
+  <a class="btn" id="cardEdit" href="#" target="_blank">✏️ 在 GitHub 上编辑</a>
+  <a class="btn" id="cardView" href="#" target="_blank">👁 在 GitHub 上查看</a>
+</div>
+
+<div id="tip">Hover to highlight · Click for actions · Double-click to open in Obsidian</div>
 
 <script src="graph-data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/force-graph@1"></script>
 <script>
 const VAULT_NAME = 'data-science-notes';
+const REPO = 'https://github.com/yelianghui684-ops/data-science-notes';
+document.getElementById('tbObsidian').href =
+  `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}`;
+
 const PALETTE = {
   '00-Home':               '#e0a106',
   '01-Mathematics':        '#5b8db8',
@@ -63,7 +96,6 @@ const PALETTE = {
   '13-TCM':                '#556b2f',
   '14-Personal-Growth':    '#e2725b',
   'Templates':             '#b0b0ab',
-  '根目录':                '#c2c2bd',
 };
 const color = n => PALETTE[n.group] || '#b0b0ab';
 const radius = n => {
@@ -71,14 +103,22 @@ const radius = n => {
   return n.isHub ? Math.max(base, 5.5) : base;
 };
 
+// 邻接表(在 force-graph 改写 links 前用原始字符串 id 构建)
+const neighbors = {};
+graphData.links.forEach(l => {
+  (neighbors[l.source] = neighbors[l.source] || new Set()).add(l.target);
+  (neighbors[l.target] = neighbors[l.target] || new Set()).add(l.source);
+});
+const isNeighbor = (a, b) => neighbors[a] && neighbors[a].has(b);
+
 document.getElementById('stats').textContent =
   `${graphData.nodes.length} notes · ${graphData.links.length} links`;
 
-// 图例(点击筛选领域)
+// 图例与搜索筛选
 let activeGroup = null, query = '';
 const legend = document.getElementById('legend');
 Object.entries(PALETTE).forEach(([g, c]) => {
-  if (g === 'Templates' || g === '根目录') return;
+  if (g === 'Templates') return;
   const row = document.createElement('div');
   row.className = 'lg';
   row.innerHTML = `<span class="dot" style="background:${c}"></span>${g.replace(/^\d+-/, '')}`;
@@ -100,46 +140,85 @@ function visible(n) {
   return true;
 }
 
+// 节点操作卡片
+const card = document.getElementById('card');
+document.getElementById('cardClose').onclick = () => card.style.display = 'none';
+function showCard(n) {
+  const file = n.path.replace(/\.md$/, '');
+  document.getElementById('cardTitle').textContent = n.id;
+  document.getElementById('cardGroup').textContent = `${n.group} · ${n.degree} links`;
+  document.getElementById('cardObsidian').href =
+    `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(file)}`;
+  document.getElementById('cardEdit').href = `${REPO}/edit/main/${encodeURI(n.path)}`;
+  document.getElementById('cardView').href = `${REPO}/blob/main/${encodeURI(n.path)}`;
+  card.style.display = 'block';
+}
+
+let hoverNode = null;
 const elem = document.getElementById('graph');
 const Graph = ForceGraph()(elem)
   .graphData(graphData)
   .backgroundColor('#fdfdfc')
+  .autoPauseRedraw(false)
   .nodeVisibility(n => visible(n))
   .linkVisibility(l => visible(l.source) && visible(l.target))
-  .nodeLabel(n => `<div style="background:#fff;padding:6px 10px;border-radius:8px;
-      color:#222;font-size:13px;border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,.08)">
-      <b style="color:${color(n)}">●</b> ${n.id}<br>
-      <span style="color:#999;font-size:11px">${n.group} · ${n.degree} links</span></div>`)
-  .linkColor(() => 'rgba(120,120,120,0.28)')
-  .linkWidth(0.8)
+  .nodeLabel(() => '')
+  .onNodeHover(n => {
+    hoverNode = n || null;
+    elem.style.cursor = n ? 'pointer' : null;
+  })
+  .linkColor(l => {
+    if (hoverNode) {
+      const s = l.source.id ?? l.source, t = l.target.id ?? l.target;
+      return (s === hoverNode.id || t === hoverNode.id)
+        ? 'rgba(60,60,60,0.6)' : 'rgba(120,120,120,0.07)';
+    }
+    return 'rgba(120,120,120,0.28)';
+  })
+  .linkWidth(l => {
+    if (!hoverNode) return 0.8;
+    const s = l.source.id ?? l.source, t = l.target.id ?? l.target;
+    return (s === hoverNode.id || t === hoverNode.id) ? 1.6 : 0.5;
+  })
   .nodeCanvasObject((n, ctx, scale) => {
     if (!isFinite(n.x) || !isFinite(n.y)) return;
     const r = radius(n);
+    const related = hoverNode && (n === hoverNode || isNeighbor(hoverNode.id, n.id));
+    ctx.globalAlpha = hoverNode && !related ? 0.12 : 1;
     ctx.fillStyle = color(n);
     ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 2 * Math.PI); ctx.fill();
-    if (n.isHub || scale > 2.4) {
+    if (n === hoverNode) {
+      ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5 / scale; ctx.stroke();
+    }
+    if (n.isHub || scale > 2.4 || related) {
       const label = n.id.replace(' MOC', '').replace('🌌 ', '');
-      const fs = n.isHub ? Math.max(13 / scale, 3.2) : 10 / scale;
+      const fs = n.isHub ? Math.max(13 / scale, 3.2) : Math.max(10 / scale, 2.6);
       ctx.font = `${n.isHub ? '600 ' : ''}${fs}px -apple-system, "PingFang SC", sans-serif`;
       ctx.textAlign = 'center'; ctx.textBaseline = 'top';
       ctx.strokeStyle = 'rgba(253,253,252,.85)'; ctx.lineWidth = 3 / scale;
       ctx.strokeText(label, n.x, n.y + r + 2 / scale);
-      ctx.fillStyle = n.isHub ? '#222' : '#666';
+      ctx.fillStyle = n.isHub ? '#222' : '#555';
       ctx.fillText(label, n.x, n.y + r + 2 / scale);
     }
+    ctx.globalAlpha = 1;
   })
   .nodePointerAreaPaint((n, paintColor, ctx) => {
     ctx.fillStyle = paintColor;
     ctx.beginPath(); ctx.arc(n.x, n.y, radius(n) + 4, 0, 2 * Math.PI); ctx.fill();
   })
-  .onNodeRightClick(n => openInObsidian(n));
+  .onNodeRightClick(n => openInObsidian(n))
+  .onBackgroundClick(() => card.style.display = 'none');
 
-// 单击聚焦,双击在 Obsidian 中打开
+// 单击:聚焦 + 弹出操作卡片;双击:直接在 Obsidian 中打开
 let lastClick = { id: null, t: 0 };
 Graph.onNodeClick(n => {
   const now = Date.now();
   if (lastClick.id === n.id && now - lastClick.t < 400) openInObsidian(n);
-  else { Graph.centerAt(n.x, n.y, 600); Graph.zoom(3.2, 600); }
+  else {
+    Graph.centerAt(n.x, n.y, 600);
+    Graph.zoom(Math.max(Graph.zoom(), 2.6), 600);
+    showCard(n);
+  }
   lastClick = { id: n.id, t: now };
 });
 
@@ -147,7 +226,6 @@ function openInObsidian(n) {
   window.location.href = `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(n.path.replace(/\.md$/, ''))}`;
 }
 
-// 布局:枢纽斥力更大,形成一簇一簇的星状分区
 Graph.d3Force('charge').strength(n => (n.isHub ? -260 : -40));
 let fitted = false;
 Graph.onEngineStop(() => { if (!fitted) { fitted = true; Graph.zoomToFit(500, 60); } });
