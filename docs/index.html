@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🌌 数据科学第二大脑 · 三维星状图</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #05060f; overflow: hidden;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  #graph { width: 100%; height: 100%; }
+  #panel {
+    position: absolute; top: 16px; left: 16px; z-index: 10;
+    background: rgba(10, 14, 30, .72); backdrop-filter: blur(8px);
+    border: 1px solid rgba(120, 140, 255, .25); border-radius: 12px;
+    padding: 14px 16px; color: #cdd6ff; max-width: 240px;
+  }
+  #panel h1 { font-size: 15px; margin: 0 0 6px; color: #fff; }
+  #panel p { font-size: 12px; margin: 4px 0; line-height: 1.5; color: #9aa6d8; }
+  #legend { margin-top: 8px; font-size: 12px; }
+  .lg { display: flex; align-items: center; gap: 6px; margin: 3px 0; cursor: pointer; opacity: .9; }
+  .lg:hover { opacity: 1; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  #search {
+    width: 100%; box-sizing: border-box; margin-top: 10px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(120,140,255,.3);
+    border-radius: 8px; padding: 6px 10px; color: #fff; font-size: 13px; outline: none;
+  }
+  #tip { position: absolute; bottom: 14px; left: 16px; z-index: 10;
+    color: #5f6b9e; font-size: 11px; }
+</style>
+</head>
+<body>
+<div id="graph"></div>
+<div id="panel">
+  <h1>🌌 数据科学第二大脑</h1>
+  <p id="stats"></p>
+  <input id="search" placeholder="🔍 搜索笔记…" />
+  <div id="legend"></div>
+</div>
+<div id="tip">拖动旋转 · 滚轮缩放 · 单击聚焦 · 双击在 Obsidian 中打开</div>
+
+<script src="graph-data.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://esm.sh/three@0.180.0",
+  "three/": "https://esm.sh/three@0.180.0/"
+} }
+</script>
+<script type="module">
+import ForceGraph3D from 'https://esm.sh/3d-force-graph@1.76.0?external=three';
+import SpriteText from 'https://esm.sh/three-spritetext@1.10.0?external=three';
+import * as THREE from 'three';
+
+const VAULT_NAME = 'data-science-notes';
+const PALETTE = {
+  '00-首页':     '#ffd94a',
+  '01-数学基础':  '#7c9cff',
+  '02-统计学':    '#4ecdc4',
+  '03-编程与工具': '#95e06c',
+  '04-数据库与SQL':'#f7a072',
+  '05-机器学习':  '#ff6b9d',
+  '06-深度学习':  '#c084fc',
+  '07-数据可视化': '#38bdf8',
+  '08-数据工程':  '#fb7185',
+  '09-项目实战':  '#facc15',
+  '模板':        '#8b93a8',
+  '根目录':      '#5f6b7a',
+};
+const color = n => PALETTE[n.group] || '#8b93a8';
+
+document.getElementById('stats').textContent =
+  `${graphData.nodes.length} 个知识节点 · ${graphData.links.length} 条连线`;
+
+// 图例(可点击高亮该领域)
+let activeGroup = null;
+const legend = document.getElementById('legend');
+Object.entries(PALETTE).forEach(([g, c]) => {
+  if (g === '模板' || g === '根目录') return;
+  const row = document.createElement('div');
+  row.className = 'lg';
+  row.innerHTML = `<span class="dot" style="background:${c}"></span>${g.replace(/^\d+-/, '')}`;
+  row.onclick = () => { activeGroup = activeGroup === g ? null : g; refresh(); };
+  legend.appendChild(row);
+});
+
+const Graph = ForceGraph3D()(document.getElementById('graph'))
+  .graphData(graphData)
+  .backgroundColor('#05060f')
+  .nodeLabel(n => `<div style="background:rgba(10,14,30,.9);padding:6px 10px;border-radius:8px;
+      color:#fff;font-size:13px;border:1px solid ${color(n)}55">${n.id}<br>
+      <span style="color:#9aa6d8;font-size:11px">${n.group} · ${n.degree} 条连接</span></div>`)
+  .nodeThreeObject(n => {
+    const group = new THREE.Group();
+    const r = n.isHub ? (n.group === '00-首页' ? 9 : 6) : 2.5 + Math.min(n.degree, 8) * 0.35;
+    // 发光核心
+    const core = new THREE.Mesh(
+      new THREE.SphereGeometry(r, 24, 24),
+      new THREE.MeshBasicMaterial({ color: color(n) }));
+    // 光晕
+    const glow = new THREE.Mesh(
+      new THREE.SphereGeometry(r * 1.9, 24, 24),
+      new THREE.MeshBasicMaterial({ color: color(n), transparent: true, opacity: 0.14 }));
+    group.add(core, glow);
+    if (n.isHub) {
+      const label = new SpriteText(n.id.replace(' MOC', '').replace('🌌 ', ''), r * 1.4, '#ffffff');
+      label.position.y = r * 2.4;
+      label.material.depthWrite = false;
+      group.add(label);
+    }
+    return group;
+  })
+  .linkColor(l => '#7c9cff')
+  .linkOpacity(0.25)
+  .linkWidth(0.4)
+  .onNodeClick(n => {
+    const dist = 90;
+    const ratio = 1 + dist / Math.hypot(n.x, n.y, n.z);
+    Graph.cameraPosition({ x: n.x * ratio, y: n.y * ratio, z: n.z * ratio }, n, 1200);
+  })
+  .onNodeRightClick(n => openInObsidian(n));
+
+let lastClick = { id: null, t: 0 };
+Graph.onNodeClick(n => {
+  const now = Date.now();
+  if (lastClick.id === n.id && now - lastClick.t < 400) { openInObsidian(n); }
+  else {
+    const dist = 90;
+    const ratio = 1 + dist / Math.hypot(n.x, n.y, n.z);
+    Graph.cameraPosition({ x: n.x * ratio, y: n.y * ratio, z: n.z * ratio }, n, 1200);
+  }
+  lastClick = { id: n.id, t: now };
+});
+
+function openInObsidian(n) {
+  window.location.href = `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(n.path.replace(/\.md$/, ''))}`;
+}
+
+// 高亮筛选与搜索
+let query = '';
+document.getElementById('search').addEventListener('input', e => {
+  query = e.target.value.trim().toLowerCase(); refresh();
+});
+function visible(n) {
+  if (query) return n.id.toLowerCase().includes(query);
+  if (activeGroup) return n.group === activeGroup || n.group === '00-首页';
+  return true;
+}
+function refresh() {
+  Graph.nodeThreeObject(Graph.nodeThreeObject()); // 触发重建
+  Graph.nodeVisibility(n => visible(n))
+       .linkVisibility(l => visible(l.source) && visible(l.target));
+}
+
+// 背景星空
+(function stars() {
+  const scene = Graph.scene();
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(1500 * 3);
+  for (let i = 0; i < pos.length; i++) pos[i] = (Math.random() - 0.5) * 4000;
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  scene.add(new THREE.Points(geo,
+    new THREE.PointsMaterial({ color: 0x8899cc, size: 1.2, transparent: true, opacity: 0.6 })));
+})();
+
+// 让力导向布局更"星状":枢纽间距更大
+Graph.d3Force('charge').strength(n => (n.isHub ? -220 : -35));
+setTimeout(() => Graph.zoomToFit(600, 60), 1500);
+</script>
+</body>
+</html>
