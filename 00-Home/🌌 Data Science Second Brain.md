@@ -17,6 +17,14 @@ tags: [首页, MOC]
 - [[Data Engineering MOC]] — ETL、大数据、MLOps
 - [[Projects MOC]] — Kaggle、端到端项目
 
+## 拓展领域(学业与兴趣)
+
+- [[Academics MOC]] — 课程地图、竞赛(美赛 / 洛谷)、职业规划
+- [[Finance and Risk MOC]] — 金融风控、量化、证券实习、投资经典
+- [[Web3 MOC]] — 区块链、智能合约、链上数据
+- [[TCM MOC]] — 中医基础、针灸、等级考试
+- [[Personal Growth MOC]] — 80/20 学习法、英语、运动恢复、书单
+
 ## 使用方法
 
 1. 每个领域有一个 **MOC(Map of Content)** 枢纽笔记,汇总该领域的所有主题

@@ -5,35 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Data Science Second Brain · Knowledge Graph</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #05060f; overflow: hidden;
+  html, body { margin: 0; height: 100%; background: #fdfdfc; overflow: hidden;
     font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
   #graph { width: 100%; height: 100%; }
   #panel {
     position: absolute; top: 16px; left: 16px; z-index: 10;
-    background: rgba(10, 14, 30, .72); backdrop-filter: blur(8px);
-    border: 1px solid rgba(120, 140, 255, .25); border-radius: 12px;
-    padding: 14px 16px; color: #cdd6ff; max-width: 250px;
+    background: rgba(255, 255, 255, .88); backdrop-filter: blur(8px);
+    border: 1px solid #e4e4e0; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    padding: 14px 16px; color: #333; max-width: 250px;
   }
-  #panel h1 { font-size: 15px; margin: 0 0 6px; color: #fff; }
-  #panel p { font-size: 12px; margin: 4px 0; line-height: 1.5; color: #9aa6d8; }
-  #legend { margin-top: 8px; font-size: 12px; }
+  #panel h1 { font-size: 15px; margin: 0 0 6px; color: #1a1a1a; }
+  #panel p { font-size: 12px; margin: 4px 0; line-height: 1.5; color: #888; }
+  #legend { margin-top: 8px; font-size: 12px; max-height: 46vh; overflow-y: auto; }
   .lg { display: flex; align-items: center; gap: 6px; margin: 3px 0; cursor: pointer; opacity: .85; }
   .lg:hover, .lg.on { opacity: 1; }
   .lg.on { font-weight: 600; }
   .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
   #search {
     width: 100%; box-sizing: border-box; margin-top: 10px;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(120,140,255,.3);
-    border-radius: 8px; padding: 6px 10px; color: #fff; font-size: 13px; outline: none;
+    background: #f4f4f2; border: 1px solid #ddd;
+    border-radius: 8px; padding: 6px 10px; color: #333; font-size: 13px; outline: none;
   }
+  #search:focus { border-color: #aaa; }
   #tip { position: absolute; bottom: 14px; left: 16px; z-index: 10;
-    color: #5f6b9e; font-size: 11px; }
+    color: #aaa; font-size: 11px; }
 </style>
 </head>
 <body>
 <div id="graph"></div>
 <div id="panel">
-  <h1>✨ Data Science Second Brain</h1>
+  <h1>关系图谱 · Second Brain</h1>
   <p id="stats"></p>
   <input id="search" placeholder="🔍 Search notes…" />
   <div id="legend"></div>
@@ -45,21 +47,29 @@
 <script>
 const VAULT_NAME = 'data-science-notes';
 const PALETTE = {
-  '00-Home':               '#ffd94a',
-  '01-Mathematics':        '#7c9cff',
-  '02-Statistics':         '#4ecdc4',
-  '03-Programming-Tools':  '#95e06c',
-  '04-Databases-SQL':      '#f7a072',
-  '05-Machine-Learning':   '#ff6b9d',
-  '06-Deep-Learning':      '#c084fc',
-  '07-Data-Visualization': '#38bdf8',
-  '08-Data-Engineering':   '#fb7185',
-  '09-Projects':           '#facc15',
-  'Templates':             '#8b93a8',
-  '根目录':                '#5f6b7a',
+  '00-Home':               '#e0a106',
+  '01-Mathematics':        '#5b8db8',
+  '02-Statistics':         '#3a8f8f',
+  '03-Programming-Tools':  '#6aa84f',
+  '04-Databases-SQL':      '#c77f3d',
+  '05-Machine-Learning':   '#d64541',
+  '06-Deep-Learning':      '#8e6bbf',
+  '07-Data-Visualization': '#4a9fd8',
+  '08-Data-Engineering':   '#3e7d5a',
+  '09-Projects':           '#b8a833',
+  '10-Academics':          '#e06fae',
+  '11-Finance-Risk':       '#8a5a2b',
+  '12-Web3':               '#4a4a4a',
+  '13-TCM':                '#556b2f',
+  '14-Personal-Growth':    '#e2725b',
+  'Templates':             '#b0b0ab',
+  '根目录':                '#c2c2bd',
 };
-const color = n => PALETTE[n.group] || '#8b93a8';
-const radius = n => n.isHub ? (n.group === '00-Home' ? 14 : 9) : 3.5 + Math.min(n.degree, 8) * 0.5;
+const color = n => PALETTE[n.group] || '#b0b0ab';
+const radius = n => {
+  const base = 2.2 + Math.min(n.degree, 20) * 0.42;
+  return n.isHub ? Math.max(base, 5.5) : base;
+};
 
 document.getElementById('stats').textContent =
   `${graphData.nodes.length} notes · ${graphData.links.length} links`;
@@ -90,60 +100,37 @@ function visible(n) {
   return true;
 }
 
-// 背景星空(屏幕坐标,固定不动)
-const stars = Array.from({ length: 220 }, () => ({
-  x: Math.random(), y: Math.random(),
-  r: Math.random() * 1.1 + 0.3, a: Math.random() * 0.5 + 0.15,
-}));
-
 const elem = document.getElementById('graph');
 const Graph = ForceGraph()(elem)
   .graphData(graphData)
-  .backgroundColor('#05060f')
+  .backgroundColor('#fdfdfc')
   .nodeVisibility(n => visible(n))
   .linkVisibility(l => visible(l.source) && visible(l.target))
-  .nodeLabel(n => `<div style="background:rgba(10,14,30,.92);padding:6px 10px;border-radius:8px;
-      color:#fff;font-size:13px;border:1px solid ${color(n)}66">${n.id}<br>
-      <span style="color:#9aa6d8;font-size:11px">${n.group} · ${n.degree} links</span></div>`)
-  .linkColor(() => 'rgba(124,156,255,0.22)')
-  .linkWidth(0.6)
+  .nodeLabel(n => `<div style="background:#fff;padding:6px 10px;border-radius:8px;
+      color:#222;font-size:13px;border:1px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+      <b style="color:${color(n)}">●</b> ${n.id}<br>
+      <span style="color:#999;font-size:11px">${n.group} · ${n.degree} links</span></div>`)
+  .linkColor(() => 'rgba(120,120,120,0.28)')
+  .linkWidth(0.8)
   .nodeCanvasObject((n, ctx, scale) => {
     if (!isFinite(n.x) || !isFinite(n.y)) return;
-    const r = radius(n), c = color(n);
-    // 光晕
-    const grad = ctx.createRadialGradient(n.x, n.y, r * 0.4, n.x, n.y, r * 3);
-    grad.addColorStop(0, c + '55');
-    grad.addColorStop(1, c + '00');
-    ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.arc(n.x, n.y, r * 3, 0, 2 * Math.PI); ctx.fill();
-    // 核心
-    ctx.fillStyle = c;
+    const r = radius(n);
+    ctx.fillStyle = color(n);
     ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 2 * Math.PI); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,.85)';
-    ctx.beginPath(); ctx.arc(n.x, n.y, r * 0.35, 0, 2 * Math.PI); ctx.fill();
-    // 标签:枢纽常显,其余放大后显示
-    if (n.isHub || scale > 2.2) {
+    if (n.isHub || scale > 2.4) {
       const label = n.id.replace(' MOC', '').replace('🌌 ', '');
-      const fs = n.isHub ? Math.max(13 / scale, 3.5) : 11 / scale;
+      const fs = n.isHub ? Math.max(13 / scale, 3.2) : 10 / scale;
       ctx.font = `${n.isHub ? '600 ' : ''}${fs}px -apple-system, "PingFang SC", sans-serif`;
       ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillStyle = n.isHub ? '#ffffff' : 'rgba(205,214,255,.75)';
-      ctx.fillText(label, n.x, n.y + r * 3 * 0.55);
+      ctx.strokeStyle = 'rgba(253,253,252,.85)'; ctx.lineWidth = 3 / scale;
+      ctx.strokeText(label, n.x, n.y + r + 2 / scale);
+      ctx.fillStyle = n.isHub ? '#222' : '#666';
+      ctx.fillText(label, n.x, n.y + r + 2 / scale);
     }
   })
   .nodePointerAreaPaint((n, paintColor, ctx) => {
     ctx.fillStyle = paintColor;
     ctx.beginPath(); ctx.arc(n.x, n.y, radius(n) + 4, 0, 2 * Math.PI); ctx.fill();
-  })
-  .onRenderFramePre(ctx => {
-    ctx.save();
-    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-    const w = elem.clientWidth, h = elem.clientHeight;
-    for (const s of stars) {
-      ctx.fillStyle = `rgba(160,180,230,${s.a})`;
-      ctx.beginPath(); ctx.arc(s.x * w, s.y * h, s.r, 0, 2 * Math.PI); ctx.fill();
-    }
-    ctx.restore();
   })
   .onNodeRightClick(n => openInObsidian(n));
 
@@ -160,10 +147,10 @@ function openInObsidian(n) {
   window.location.href = `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(n.path.replace(/\.md$/, ''))}`;
 }
 
-// 星状布局:枢纽间斥力更大
-Graph.d3Force('charge').strength(n => (n.isHub ? -320 : -45));
+// 布局:枢纽斥力更大,形成一簇一簇的星状分区
+Graph.d3Force('charge').strength(n => (n.isHub ? -260 : -40));
 let fitted = false;
-Graph.onEngineStop(() => { if (!fitted) { fitted = true; Graph.zoomToFit(500, 70); } });
+Graph.onEngineStop(() => { if (!fitted) { fitted = true; Graph.zoomToFit(500, 60); } });
 </script>
 </body>
 </html>
