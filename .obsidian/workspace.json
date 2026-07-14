@@ -11,10 +11,14 @@
             "id": "d247101d5541f217",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "08-Data-Engineering/Data Cleaning.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Data Cleaning"
             }
           }
         ]
@@ -91,6 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "08-Data-Engineering/Data Cleaning.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +105,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "Data Cleaning 的反向链接列表"
             }
           },
           {
@@ -179,6 +184,7 @@
   },
   "active": "d247101d5541f217",
   "lastOpenFiles": [
+    "09-Projects/Project Template.md",
     "03-Programming-Tools/AI Agent Workflows.md",
     "10-Academics/Evaluation Models AHP TOPSIS.md",
     "10-Academics/LaTeX and Academic Writing.md",
@@ -207,7 +213,6 @@
     "13-TCM/Acupuncture and Meridians.md",
     "13-TCM",
     "12-Web3/Web3 and Blockchain Basics.md",
-    "12-Web3/Web3 MOC.md",
     "12-Web3",
     "11-Finance-Risk",
     "10-Academics",
