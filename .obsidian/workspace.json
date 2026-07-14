@@ -11,14 +11,17 @@
             "id": "d247101d5541f217",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "08-Data-Engineering/Data Cleaning.md",
-                "mode": "source",
-                "source": false
+                "file": "未命名 1.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "Data Cleaning"
+              "icon": "lucide-layout-dashboard",
+              "title": "未命名 1"
             }
           }
         ]
@@ -95,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "08-Data-Engineering/Data Cleaning.md",
+                "file": "未命名 1.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +108,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Data Cleaning 的反向链接列表"
+              "title": "未命名 1 的反向链接列表"
             }
           },
           {
@@ -184,6 +187,9 @@
   },
   "active": "d247101d5541f217",
   "lastOpenFiles": [
+    "未命名.canvas",
+    "未命名 1.canvas",
+    "08-Data-Engineering/Data Cleaning.md",
     "09-Projects/Project Template.md",
     "03-Programming-Tools/AI Agent Workflows.md",
     "10-Academics/Evaluation Models AHP TOPSIS.md",
@@ -210,9 +216,7 @@
     "13-TCM/TCM Grading Exam Plan.md",
     "13-TCM/TCM MOC.md",
     "13-TCM/TCM Fundamentals.md",
-    "13-TCM/Acupuncture and Meridians.md",
     "13-TCM",
-    "12-Web3/Web3 and Blockchain Basics.md",
     "12-Web3",
     "11-Finance-Risk",
     "10-Academics",
@@ -220,7 +224,6 @@
     "Untitled.base",
     "03-Programming-Tools",
     "02-Statistics",
-    "09-Projects",
-    "未命名.canvas"
+    "09-Projects"
   ]
 }
