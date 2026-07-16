@@ -12,8 +12,8 @@ tags: [统计, 时间序列]
 - 经典模型:AR / MA / ARIMA;金融收益率的波动聚集 → GARCH
 - 与 ML 的衔接:滞后特征、滑动窗口(→ [[Feature Engineering]]);验证必须用时序切分(→ [[Model Evaluation and Tuning]])
 - 深度学习路线:RNN/LSTM → [[RNNs and Sequence Models]]
-- 量化的地基:行情数据全是时间序列(→ [[Quantitative Investing]])
+- 量化的地基:行情数据全是时间序列()
 
 ## 关联
 - 所属领域:[[Statistics MOC]]
-- 相关笔记:[[Regression Analysis]]、[[Backtesting Rigor]]
+- 相关笔记:[[Regression Analysis]]、
