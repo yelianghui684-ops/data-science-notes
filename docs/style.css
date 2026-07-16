@@ -1,0 +1,170 @@
+:root {
+  --bg: #0B111E;
+  --ink: #c9d4ec;
+  --ink-dim: #6f7d9c;
+  --line: rgba(140, 160, 210, .16);
+  --gold: #d9bc7a;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; height: 100%; overflow: hidden; background: var(--bg);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+}
+
+#stage { position: fixed; inset: 0; }
+#stage canvas { display: block; }
+
+/* 屏幕空间的呼吸感渐晕 */
+#vignette {
+  position: fixed; inset: 0; pointer-events: none; z-index: 2;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 42%, rgba(28, 42, 74, .28), transparent 65%),
+    radial-gradient(ellipse 140% 120% at 50% 50%, transparent 55%, rgba(3, 5, 12, .55) 100%);
+}
+
+.glass {
+  background: rgba(13, 19, 34, .62);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, .35);
+}
+
+/* ---------- 左侧面板 ---------- */
+#panel {
+  position: fixed; top: 18px; left: 18px; z-index: 10;
+  width: 232px; padding: 16px 16px 12px;
+}
+#panel h1 { font-size: 15px; margin: 0 0 2px; color: #e8eefc; font-weight: 600; letter-spacing: .5px; }
+#panel h1 span { font-size: 11px; color: var(--ink-dim); font-weight: 400; margin-left: 4px; }
+#panel p { font-size: 11px; color: var(--ink-dim); margin: 4px 0 10px; }
+
+#searchWrap { position: relative; }
+#search {
+  width: 100%; padding: 7px 11px; font-size: 13px; color: var(--ink);
+  background: rgba(255, 255, 255, .05); border: 1px solid var(--line);
+  border-radius: 9px; outline: none; transition: border-color .2s;
+}
+#search:focus { border-color: rgba(160, 185, 240, .45); }
+#results {
+  position: absolute; top: 38px; left: 0; right: 0; z-index: 20;
+  max-height: 220px; overflow-y: auto; display: none; padding: 4px;
+}
+#results .item {
+  padding: 6px 9px; font-size: 12px; border-radius: 7px; cursor: pointer;
+  display: flex; align-items: center; gap: 7px; color: var(--ink);
+}
+#results .item:hover { background: rgba(140, 160, 210, .12); }
+
+#legend { margin-top: 12px; font-size: 12px; max-height: 44vh; overflow-y: auto; }
+.lg {
+  display: flex; align-items: center; gap: 7px; margin: 2px 0; padding: 3px 6px;
+  border-radius: 7px; cursor: pointer; opacity: .78; transition: all .15s; color: var(--ink);
+}
+.lg:hover { opacity: 1; background: rgba(140, 160, 210, .08); }
+.lg.on { opacity: 1; background: rgba(140, 160, 210, .14); font-weight: 600; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none;
+  box-shadow: 0 0 6px 1px currentColor; }
+
+/* ---------- 工具栏 ---------- */
+#toolbar { position: fixed; top: 18px; right: 18px; z-index: 10; padding: 7px 9px; display: flex; gap: 7px; }
+.btn {
+  display: inline-block; text-decoration: none; font-size: 12px; color: var(--ink);
+  background: rgba(255, 255, 255, .05); border: 1px solid var(--line);
+  border-radius: 8px; padding: 5px 11px; cursor: pointer; white-space: nowrap;
+  transition: all .15s;
+}
+.btn:hover { background: rgba(140, 160, 210, .14); border-color: rgba(160, 185, 240, .4); color: #eef3ff; }
+
+/* ---------- 详情抽屉 ---------- */
+#drawer {
+  position: fixed; top: 70px; right: 18px; bottom: 160px; z-index: 12;
+  width: 300px; padding: 18px;
+  transform: translateX(340px); opacity: 0;
+  transition: transform .45s cubic-bezier(.22, 1, .3, 1), opacity .3s;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#drawer.open { transform: translateX(0); opacity: 1; }
+#drawerClose { position: absolute; top: 12px; right: 14px; cursor: pointer; color: var(--ink-dim); font-size: 14px; }
+#drawerClose:hover { color: #fff; }
+#drawerChip {
+  display: inline-block; align-self: flex-start; font-size: 10px; padding: 2px 8px;
+  border-radius: 20px; border: 1px solid; margin-bottom: 8px; letter-spacing: .4px;
+}
+#drawerTitle { font-size: 17px; margin: 0 0 4px; color: #eef3ff; font-weight: 600; }
+#drawerMeta { font-size: 11px; color: var(--ink-dim); margin: 0 0 10px; }
+#drawerExcerpt {
+  font-size: 12.5px; line-height: 1.7; color: var(--ink); margin: 0 0 14px;
+  padding: 10px 12px; border-left: 2px solid var(--gold);
+  background: rgba(217, 188, 122, .06); border-radius: 0 8px 8px 0;
+}
+#drawer h3 { font-size: 11px; color: var(--ink-dim); margin: 0 0 6px; font-weight: 500; letter-spacing: 1px; }
+#drawerLinks { flex: 1; overflow-y: auto; margin-bottom: 12px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px; margin: 0 5px 6px 0;
+  font-size: 11.5px; padding: 3px 9px; border-radius: 20px; cursor: pointer;
+  background: rgba(255, 255, 255, .04); border: 1px solid var(--line); color: var(--ink);
+  transition: all .15s;
+}
+.chip:hover { background: rgba(140, 160, 210, .15); color: #fff; }
+.chip .dot { width: 6px; height: 6px; box-shadow: 0 0 4px currentColor; }
+#drawerActions .btn { display: block; text-align: center; margin-top: 7px; }
+
+/* ---------- 小地图 ---------- */
+#minimap {
+  position: fixed; right: 18px; bottom: 18px; z-index: 10;
+  width: 170px; height: 120px; cursor: crosshair; padding: 0;
+}
+
+/* ---------- 航线面包屑 ---------- */
+#trail {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 10; padding: 6px 10px 6px 12px; display: none;
+  align-items: center; gap: 8px; max-width: 60vw;
+}
+#trail.show { display: flex; }
+#trailChips { display: flex; gap: 4px; overflow-x: auto; align-items: center; }
+#trailChips .tchip {
+  font-size: 11px; color: var(--gold); cursor: pointer; white-space: nowrap;
+  padding: 2px 7px; border-radius: 14px; background: rgba(217, 188, 122, .08);
+  border: 1px solid rgba(217, 188, 122, .25); transition: background .15s;
+}
+#trailChips .tchip:hover { background: rgba(217, 188, 122, .2); }
+#trailChips .sep { color: rgba(217, 188, 122, .4); font-size: 10px; }
+#trailClear { cursor: pointer; color: var(--ink-dim); font-size: 12px; flex: none; }
+#trailClear:hover { color: #fff; }
+
+#tip {
+  position: fixed; bottom: 18px; left: 18px; z-index: 5;
+  color: rgba(111, 125, 156, .75); font-size: 11px; letter-spacing: .3px;
+}
+
+/* ---------- 星体标签(CSS2D) ---------- */
+.starlabel {
+  pointer-events: none; user-select: none; white-space: nowrap;
+  transform: translateY(10px);
+  font-family: -apple-system, "PingFang SC", sans-serif;
+  transition: opacity .3s ease;
+  text-shadow: 0 0 8px rgba(5, 8, 20, .95), 0 0 3px rgba(5, 8, 20, .95);
+}
+.starlabel.hub { font-size: 13px; font-weight: 600; color: #e9eefb; letter-spacing: .5px; }
+.starlabel.leaf { font-size: 10.5px; color: rgba(190, 202, 230, .85); }
+
+/* LOD 门控:远景只留枢纽名,近景叶子标签浮现 */
+body[data-lod="far"] .starlabel.leaf { opacity: 0 !important; }
+body[data-lod="mid"] .starlabel.leaf { opacity: 0; }
+body[data-lod="mid"] .starlabel.leaf.force { opacity: 1; }
+body[data-lod="near"] .starlabel.leaf { opacity: 1; }
+.starlabel.dimmed { opacity: .06 !important; }
+
+/* ---------- 降级 ---------- */
+#fallback {
+  display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 50; padding: 28px 34px; text-align: center;
+}
+#fallback h2 { margin: 0 0 8px; font-size: 16px; color: #eef3ff; }
+#fallback p { font-size: 12px; color: var(--ink-dim); margin-bottom: 14px; }
+#fallback .btn { margin: 0 5px; }

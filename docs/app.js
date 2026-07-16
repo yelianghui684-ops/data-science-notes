@@ -1,0 +1,580 @@
+// 知识星云 · Three.js + Shader 渲染,d3-force 布局
+import * as THREE from 'three';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { forceSimulation, forceLink, forceManyBody, forceCollide, forceRadial } from 'd3-force';
+
+const VAULT = 'data-science-notes';
+const REPO = 'https://github.com/yelianghui684-ops/data-science-notes';
+
+// ---------- 莫兰迪低饱和调色板 ----------
+const PALETTE = {
+  '00-Home':               '#d9bc7a',
+  '01-Mathematics':        '#8aa2c8',
+  '02-Statistics':         '#7fb5ac',
+  '03-Programming-Tools':  '#9ab88a',
+  '04-Databases-SQL':      '#c8a37a',
+  '05-Machine-Learning':   '#c98a8a',
+  '06-Deep-Learning':      '#a795c9',
+  '07-Data-Visualization': '#7fa9cc',
+  '08-Data-Engineering':   '#7f9c8d',
+  '09-Projects':           '#bfb07f',
+  'Templates':             '#7d8494',
+};
+const colorOf = n => PALETTE[n.group] || '#7d8494';
+const coreR = n => n.isHub ? (n.group === '00-Home' ? 11 : 8) : 2.6 + Math.min(n.degree, 12) * 0.38;
+
+const nodes = graphData.nodes;
+const links = graphData.links;
+const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+const neighbors = {};
+links.forEach(l => {
+  (neighbors[l.source] = neighbors[l.source] || []).push(l.target);
+  (neighbors[l.target] = neighbors[l.target] || []).push(l.source);
+});
+const isNb = (a, b) => a === b || (neighbors[a] || []).includes(b);
+
+document.getElementById('stats').textContent = `${nodes.length} 颗星体 · ${links.length} 条引力线`;
+document.getElementById('tbObsidian').href = `obsidian://open?vault=${encodeURIComponent(VAULT)}`;
+
+// ---------- 渲染器 ----------
+const stage = document.getElementById('stage');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+} catch (e) {
+  document.getElementById('fallback').style.display = 'block';
+  throw e;
+}
+let W = innerWidth, H = innerHeight;
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(W, H);
+renderer.setClearColor(0x0B111E);
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, 0.1, 2000);
+camera.position.set(0, 0, 600);
+
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(W, H);
+Object.assign(labelRenderer.domElement.style,
+  { position: 'fixed', top: '0', left: '0', pointerEvents: 'none', zIndex: '3' });
+document.body.appendChild(labelRenderer.domElement);
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.45, 0.7, 0.2);
+composer.addPass(bloom);
+
+// ---------- 宇宙微尘(3 层视差 + 微闪) ----------
+const dustLayers = [];
+const dustVert = `
+  attribute float aSize; attribute float aPhase;
+  uniform float uTime; varying float vTw;
+  void main() {
+    vTw = 0.55 + 0.45 * sin(uTime * 0.6 + aPhase);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    gl_PointSize = aSize;
+  }`;
+const dustFrag = `
+  uniform float uOpacity; varying float vTw;
+  void main() {
+    float d = length(gl_PointCoord - 0.5) * 2.0;
+    float a = (1.0 - smoothstep(0.4, 1.0, d)) * uOpacity * vTw;
+    gl_FragColor = vec4(0.62, 0.70, 0.88, a);
+  }`;
+[{ n: 130, size: [1, 2.2], op: 0.14, par: 0.25 },
+ { n: 90,  size: [1.4, 2.8], op: 0.22, par: 0.5 },
+ { n: 55,  size: [1.8, 3.4], op: 0.3, par: 0.75 }].forEach((cfg, i) => {
+  const g = new THREE.BufferGeometry();
+  const pos = new Float32Array(cfg.n * 3), sz = new Float32Array(cfg.n), ph = new Float32Array(cfg.n);
+  for (let j = 0; j < cfg.n; j++) {
+    pos[j * 3] = (Math.random() - 0.5) * 4200;
+    pos[j * 3 + 1] = (Math.random() - 0.5) * 3000;
+    pos[j * 3 + 2] = -80 - i * 60;
+    sz[j] = cfg.size[0] + Math.random() * (cfg.size[1] - cfg.size[0]);
+    ph[j] = Math.random() * Math.PI * 2;
+  }
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('aSize', new THREE.BufferAttribute(sz, 1));
+  g.setAttribute('aPhase', new THREE.BufferAttribute(ph, 1));
+  const m = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uOpacity: { value: cfg.op } },
+    vertexShader: dustVert, fragmentShader: dustFrag,
+    transparent: true, depthWrite: false,
+  });
+  const pts = new THREE.Points(g, m);
+  pts.userData.par = cfg.par;
+  scene.add(pts);
+  dustLayers.push(pts);
+});
+
+// ---------- 星体(单 shader:实心核 + 克制光晕) ----------
+const starVert = `
+  varying vec2 vUv;
+  void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+const starFrag = `
+  uniform vec3 uColor; uniform float uAlpha; uniform float uHalo;
+  varying vec2 vUv;
+  void main() {
+    vec2 p = vUv - 0.5; float d = length(p) * 2.0;
+    float core = 1.0 - smoothstep(0.20, 0.25, d);
+    float halo = pow(1.0 - smoothstep(0.22, 1.0, d), 2.4) * uHalo;
+    float a = clamp(core * 0.95 + halo, 0.0, 1.0) * uAlpha;
+    if (a < 0.003) discard;
+    gl_FragColor = vec4(uColor + core * 0.22, a);
+  }`;
+const quad = new THREE.PlaneGeometry(1, 1);
+nodes.forEach(n => {
+  const r = coreR(n);
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {
+      uColor: { value: new THREE.Color(colorOf(n)) },
+      uAlpha: { value: 0.95 },
+      uHalo: { value: n.isHub ? 0.28 : 0.17 },
+    },
+    vertexShader: starVert, fragmentShader: starFrag,
+    transparent: true, depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(quad, mat);
+  mesh.scale.setScalar(r * 8);          // 核占 25%,光晕半径 = 4r
+  mesh.renderOrder = n.isHub ? 3 : 2;
+  scene.add(mesh);
+  n._mesh = mesh; n._r = r;
+  n._alpha = 0.95; n._alphaT = 0.95; n._scaleT = 1;
+
+  const div = document.createElement('div');
+  div.className = 'starlabel ' + (n.isHub ? 'hub' : 'leaf');
+  div.textContent = n.id.replace(' MOC', '').replace('🌌 ', '');
+  const lab = new CSS2DObject(div);
+  lab.position.set(0, -0.062, 0);       // 相对精灵,略低于核心
+  lab.center.set(0.5, 0);
+  mesh.add(lab);
+  n._label = div;
+});
+
+// ---------- 引力线(贝塞尔 + 权重定宽) ----------
+const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7);
+links.forEach(l => {
+  const mat = new LineMaterial({
+    color: 0x8ea3cf,
+    linewidth: 0.8 + l.weight * 0.55,
+    transparent: true,
+    opacity: 0.08 + l.weight * 0.06,
+    depthWrite: false,
+  });
+  mat.resolution.set(W, H);
+  const line = new Line2(new LineGeometry(), mat);
+  line.renderOrder = 1;
+  scene.add(line);
+  l._line = line; l._mat = mat;
+  l._baseOp = 0.08 + l.weight * 0.06;
+  l._op = l._baseOp; l._opT = l._baseOp;
+  l._side = (hash(l.source + l.target) % 2 ? 1 : -1);
+});
+function linkPositions(l) {
+  const a = byId[l.source], b = byId[l.target];
+  const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const cx = mx - dy / len * len * 0.14 * l._side;
+  const cy = my + dx / len * len * 0.14 * l._side;
+  const curve = new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(a.x, a.y, 0), new THREE.Vector3(cx, cy, 0), new THREE.Vector3(b.x, b.y, 0));
+  const pts = curve.getPoints(16);
+  const arr = [];
+  pts.forEach(p => arr.push(p.x, p.y, 0));
+  return arr;
+}
+
+// ---------- 轨道圈(布局稳定后按子星平均距离绘制) ----------
+const rings = [];
+function makeRing(radius, cx, cy, op) {
+  const pts = new THREE.EllipseCurve(0, 0, radius, radius).getPoints(90);
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  const m = new THREE.LineDashedMaterial({
+    color: 0x96aade, transparent: true, opacity: op,
+    dashSize: 6, gapSize: 9, depthWrite: false,
+  });
+  const ring = new THREE.LineLoop(g, m);
+  ring.computeLineDistances();
+  ring.position.set(cx, cy, -5);
+  scene.add(ring);
+  rings.push(ring);
+  return ring;
+}
+function buildRings() {
+  rings.forEach(r => scene.remove(r));
+  rings.length = 0;
+  nodes.filter(n => n.isHub).forEach(h => {
+    const kids = (neighbors[h.id] || []).map(id => byId[id]).filter(k => !k.isHub);
+    if (!kids.length) return;
+    const avg = kids.reduce((s, k) => s + Math.hypot(k.x - h.x, k.y - h.y), 0) / kids.length;
+    makeRing(avg, h.x, h.y, 0.055);
+    if (h.group === '00-Home') makeRing(avg * 1.9, h.x, h.y, 0.04);
+  });
+}
+
+// ---------- d3-force 布局 ----------
+const home = nodes.find(n => n.group === '00-Home');
+const sim = forceSimulation(nodes)
+  .force('link', forceLink(links.map(l => ({ ...l }))).id(n => n.id)
+    .distance(l => (byId[l.source.id ?? l.source].isHub && !byId[l.target.id ?? l.target].isHub) ||
+                   (!byId[l.source.id ?? l.source].isHub && byId[l.target.id ?? l.target].isHub) ? 46 : 96)
+    .strength(0.5))
+  .force('charge', forceManyBody().strength(n => n.isHub ? -420 : -62))
+  .force('radialHubs', forceRadial(260, 0, 0).strength(n => n.isHub && n !== home ? 0.09 : 0))
+  .force('collide', forceCollide(n => coreR(n) + 5))
+  .stop();
+if (home) { home.fx = 0; home.fy = 0; }
+let simActive = true, settled = false;
+
+// ---------- 相机与视口 ----------
+let zoomK = 0.9;
+function applyZoom() { camera.zoom = zoomK; camera.updateProjectionMatrix(); updateLOD(); }
+applyZoom();
+const s2w = (px, py) => ({
+  x: camera.position.x + (px - W / 2) / zoomK,
+  y: camera.position.y - (py - H / 2) / zoomK,
+});
+
+// LOD:远景 <0.7 / 中景 / 近景 ≥2.2
+let lod = 'mid';
+function updateLOD() {
+  const next = zoomK < 0.7 ? 'far' : zoomK < 2.2 ? 'near-mid' : 'near';
+  const attr = next === 'far' ? 'far' : next === 'near' ? 'near' : 'mid';
+  if (document.body.dataset.lod !== attr) document.body.dataset.lod = attr;
+  lod = attr;
+}
+
+// ---------- 聚焦 / 筛选 / 目标透明度 ----------
+let hoverNode = null, activeGroup = null, focusNode = null;
+function lodNodeFactor(n) {
+  if (lod === 'far') return n.isHub ? 1 : 0.12;
+  return 1;
+}
+function lodLinkFactor(l) {
+  const a = byId[l.source], b = byId[l.target];
+  if (lod === 'far') return (a.isHub && b.isHub) ? 1 : 0.18;
+  if (lod === 'near') return 1.5;
+  return 1;
+}
+function groupFactorN(n) {
+  if (!activeGroup) return 1;
+  return (n.group === activeGroup || n.group === '00-Home') ? 1 : 0.07;
+}
+function updateTargets() {
+  const focus = hoverNode || focusNode;
+  nodes.forEach(n => {
+    let f = lodNodeFactor(n) * groupFactorN(n);
+    if (focus) f *= isNb(focus.id, n.id) ? 1 : 0.08;
+    n._alphaT = 0.95 * f;
+    n._scaleT = (lod === 'far' && n.isHub ? 1.55 : 1) * (focus && n === focus ? 1.18 : 1);
+    n._label.classList.toggle('dimmed', !!focus && !isNb(focus.id, n.id));
+    n._label.classList.toggle('force', !!focus && !n.isHub && isNb(focus.id, n.id));
+  });
+  links.forEach(l => {
+    let f = lodLinkFactor(l);
+    if (activeGroup) {
+      const ok = groupFactorN(byId[l.source]) === 1 && groupFactorN(byId[l.target]) === 1;
+      f *= ok ? 1 : 0.06;
+    }
+    if (focus) {
+      const touch = l.source === focus.id || l.target === focus.id;
+      f = touch ? 3.2 : f * 0.12;
+    }
+    l._opT = Math.min(l._baseOp * f, 0.75);
+  });
+}
+
+// ---------- 图例 ----------
+const legend = document.getElementById('legend');
+Object.entries(PALETTE).forEach(([g, c]) => {
+  if (g === 'Templates') return;
+  const row = document.createElement('div');
+  row.className = 'lg';
+  row.innerHTML = `<span class="dot" style="background:${c};color:${c}"></span>${g.replace(/^\d+-/, '')}`;
+  row.onclick = () => {
+    activeGroup = activeGroup === g ? null : g;
+    [...legend.children].forEach(el => el.classList.remove('on'));
+    if (activeGroup) row.classList.add('on');
+    updateTargets();
+  };
+  legend.appendChild(row);
+});
+
+// ---------- 搜索(实时下拉 + Fly-to) ----------
+const searchEl = document.getElementById('search');
+const resultsEl = document.getElementById('results');
+searchEl.addEventListener('input', () => {
+  const q = searchEl.value.trim().toLowerCase();
+  resultsEl.innerHTML = '';
+  if (!q) { resultsEl.style.display = 'none'; return; }
+  const hits = nodes.filter(n => n.id.toLowerCase().includes(q)).slice(0, 8);
+  hits.forEach(n => {
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.innerHTML = `<span class="dot" style="background:${colorOf(n)};color:${colorOf(n)}"></span>${n.id}`;
+    item.onclick = () => { resultsEl.style.display = 'none'; searchEl.value = ''; visit(n); };
+    resultsEl.appendChild(item);
+  });
+  resultsEl.style.display = hits.length ? 'block' : 'none';
+});
+
+// ---------- Fly-to 时空穿梭 ----------
+let tween = null;
+function flyTo(x, y, k, dur = 850) {
+  const s = { x: camera.position.x, y: camera.position.y, k: zoomK, t: performance.now() };
+  tween = { s, e: { x, y, k }, dur };
+}
+function stepTween(now) {
+  if (!tween) return;
+  let t = (now - tween.s.t) / tween.dur;
+  if (t >= 1) { t = 1; }
+  const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; // easeInOutCubic
+  camera.position.x = tween.s.x + (tween.e.x - tween.s.x) * e;
+  camera.position.y = tween.s.y + (tween.e.y - tween.s.y) * e;
+  zoomK = tween.s.k + (tween.e.k - tween.s.k) * e;
+  applyZoom();
+  if (t === 1) tween = null;
+}
+
+// ---------- 抽屉 ----------
+const drawer = document.getElementById('drawer');
+document.getElementById('drawerClose').onclick = () => { drawer.classList.remove('open'); focusNode = null; updateTargets(); };
+function openDrawer(n) {
+  const c = colorOf(n);
+  const chip = document.getElementById('drawerChip');
+  chip.textContent = n.group.replace(/^\d+-/, '');
+  chip.style.color = c; chip.style.borderColor = c + '66'; chip.style.background = c + '14';
+  document.getElementById('drawerTitle').textContent = n.id.replace('🌌 ', '');
+  document.getElementById('drawerMeta').textContent = `${n.degree} 条引力连接 · ${n.path}`;
+  document.getElementById('drawerExcerpt').textContent = n.excerpt || '(暂无摘要)';
+  const linksEl = document.getElementById('drawerLinks');
+  linksEl.innerHTML = '';
+  (neighbors[n.id] || []).map(id => byId[id])
+    .sort((a, b) => b.isHub - a.isHub || b.degree - a.degree)
+    .forEach(nb => {
+      const chipEl = document.createElement('span');
+      chipEl.className = 'chip';
+      const cc = colorOf(nb);
+      chipEl.innerHTML = `<span class="dot" style="background:${cc};color:${cc}"></span>${nb.id.replace('🌌 ', '')}`;
+      chipEl.onclick = () => visit(nb);
+      linksEl.appendChild(chipEl);
+    });
+  const file = n.path.replace(/\.md$/, '');
+  document.getElementById('actObsidian').href =
+    `obsidian://open?vault=${encodeURIComponent(VAULT)}&file=${encodeURIComponent(file)}`;
+  document.getElementById('actEdit').href = `${REPO}/edit/main/${encodeURI(n.path)}`;
+  document.getElementById('actView').href = `${REPO}/blob/main/${encodeURI(n.path)}`;
+  drawer.classList.add('open');
+}
+
+// ---------- 航线(Breadcrumbs) ----------
+const trail = [];
+let trailLine = null;
+const trailBox = document.getElementById('trail');
+const trailChips = document.getElementById('trailChips');
+document.getElementById('trailClear').onclick = () => { trail.length = 0; renderTrail(); };
+function renderTrail() {
+  trailChips.innerHTML = '';
+  trail.slice(-8).forEach((n, i, arr) => {
+    if (i) { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; trailChips.appendChild(s); }
+    const c = document.createElement('span');
+    c.className = 'tchip'; c.textContent = n.id.replace(' MOC', '').replace('🌌 ', '');
+    c.onclick = () => visit(n, false);
+    trailChips.appendChild(c);
+  });
+  trailBox.classList.toggle('show', trail.length > 0);
+  if (trailLine) { scene.remove(trailLine); trailLine = null; }
+  if (trail.length > 1) {
+    const pts = trail.map(n => new THREE.Vector3(n.x, n.y, 2));
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const arr = [];
+    curve.getPoints(trail.length * 10).forEach(p => arr.push(p.x, p.y, 2));
+    const g = new LineGeometry(); g.setPositions(arr);
+    const m = new LineMaterial({
+      color: 0xd9bc7a, linewidth: 1.6, transparent: true, opacity: 0.34, depthWrite: false,
+    });
+    m.resolution.set(W, H);
+    trailLine = new Line2(g, m);
+    trailLine.renderOrder = 4;
+    scene.add(trailLine);
+  }
+}
+function visit(n, push = true) {
+  if (push && trail[trail.length - 1] !== n) { trail.push(n); if (trail.length > 10) trail.shift(); renderTrail(); }
+  focusNode = n;
+  flyTo(n.x, n.y, Math.max(zoomK, 2.6));
+  openDrawer(n);
+  updateTargets();
+}
+
+// ---------- 指针交互 ----------
+let dragging = false, moved = 0, last = { x: 0, y: 0 };
+const canvas = renderer.domElement;
+canvas.addEventListener('pointerdown', e => {
+  dragging = true; moved = 0; last = { x: e.clientX, y: e.clientY }; tween = null;
+});
+addEventListener('pointermove', e => {
+  if (dragging) {
+    const dx = e.clientX - last.x, dy = e.clientY - last.y;
+    moved += Math.abs(dx) + Math.abs(dy);
+    camera.position.x -= dx / zoomK;
+    camera.position.y += dy / zoomK;
+    last = { x: e.clientX, y: e.clientY };
+  } else {
+    const w = s2w(e.clientX, e.clientY);
+    let best = null, bestD = Infinity;
+    nodes.forEach(n => {
+      const d = Math.hypot(n.x - w.x, n.y - w.y);
+      if (d < n._r * 1.8 + 7 / zoomK && d < bestD) { best = n; bestD = d; }
+    });
+    if (best !== hoverNode) {
+      hoverNode = best;
+      canvas.style.cursor = best ? 'pointer' : 'grab';
+      updateTargets();
+    }
+  }
+});
+addEventListener('pointerup', () => { dragging = false; });
+canvas.addEventListener('click', e => {
+  if (moved > 6) return;
+  if (hoverNode) visit(hoverNode);
+  else { focusNode = null; drawer.classList.remove('open'); updateTargets(); }
+});
+canvas.addEventListener('dblclick', () => {
+  if (!hoverNode) return;
+  const file = hoverNode.path.replace(/\.md$/, '');
+  location.href = `obsidian://open?vault=${encodeURIComponent(VAULT)}&file=${encodeURIComponent(file)}`;
+});
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  tween = null;
+  const before = s2w(e.clientX, e.clientY);
+  zoomK = Math.min(6, Math.max(0.15, zoomK * Math.exp(-e.deltaY * 0.0011)));
+  applyZoom();
+  const after = s2w(e.clientX, e.clientY);
+  camera.position.x += before.x - after.x;
+  camera.position.y += before.y - after.y;
+  updateTargets();
+}, { passive: false });
+
+// 鼠标视差(微尘层)
+let mouseNX = 0, mouseNY = 0;
+addEventListener('mousemove', e => {
+  mouseNX = e.clientX / W - 0.5;
+  mouseNY = e.clientY / H - 0.5;
+});
+
+// ---------- 小地图 ----------
+const mini = document.getElementById('minimap');
+const mctx = mini.getContext('2d');
+let bbox = null;
+function computeBBox() {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  nodes.forEach(n => { x0 = Math.min(x0, n.x); y0 = Math.min(y0, n.y); x1 = Math.max(x1, n.x); y1 = Math.max(y1, n.y); });
+  const pad = 60;
+  bbox = { x0: x0 - pad, y0: y0 - pad, x1: x1 + pad, y1: y1 + pad };
+}
+function drawMini() {
+  if (!bbox) return;
+  const mw = mini.width, mh = mini.height;
+  mctx.clearRect(0, 0, mw, mh);
+  const sx = mw / (bbox.x1 - bbox.x0), sy = mh / (bbox.y1 - bbox.y0);
+  const s = Math.min(sx, sy);
+  const ox = (mw - (bbox.x1 - bbox.x0) * s) / 2, oy = (mh - (bbox.y1 - bbox.y0) * s) / 2;
+  const tx = x => ox + (x - bbox.x0) * s;
+  const ty = y => oy + (bbox.y1 - y) * s;
+  nodes.forEach(n => {
+    mctx.fillStyle = colorOf(n);
+    mctx.globalAlpha = n.isHub ? 0.95 : 0.55;
+    const r = n.isHub ? 2.2 : 1.1;
+    mctx.beginPath(); mctx.arc(tx(n.x), ty(n.y), r, 0, 7); mctx.fill();
+  });
+  mctx.globalAlpha = 1;
+  const vw = W / zoomK, vh = H / zoomK;
+  mctx.strokeStyle = 'rgba(217,188,122,.75)';
+  mctx.lineWidth = 1;
+  mctx.strokeRect(tx(camera.position.x - vw / 2), ty(camera.position.y + vh / 2), vw * s, vh * s);
+  mini._t = { tx, ty, s };
+}
+mini.addEventListener('pointerdown', e => {
+  if (!bbox || !mini._t) return;
+  const rect = mini.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) * (mini.width / rect.width);
+  const my = (e.clientY - rect.top) * (mini.height / rect.height);
+  const { s } = mini._t;
+  const gx = bbox.x0 + (mx - (mini.width - (bbox.x1 - bbox.x0) * s) / 2) / s;
+  const gy = bbox.y1 - (my - (mini.height - (bbox.y1 - bbox.y0) * s) / 2) / s;
+  flyTo(gx, gy, zoomK, 500);
+});
+
+// ---------- 主循环 ----------
+const clock = new THREE.Clock();
+function syncGraph() {
+  nodes.forEach(n => n._mesh.position.set(n.x, n.y, 0));
+  links.forEach(l => l._line.geometry.setPositions(linkPositions(l)));
+}
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  stepTween(performance.now());
+
+  if (simActive) {
+    for (let i = 0; i < 3; i++) sim.tick();
+    // 把 forceLink 复制体的坐标同步回原始 nodes(d3 直接改 nodes 对象,无需复制)
+    syncGraph();
+    if (sim.alpha() < 0.03) {
+      simActive = false; settled = true;
+      buildRings(); computeBBox();
+      flyTo(0, 0, 0.9, 900);
+    }
+  }
+
+  // 透明度 / 缩放缓动
+  nodes.forEach(n => {
+    n._alpha += (n._alphaT - n._alpha) * 0.14;
+    n._mesh.material.uniforms.uAlpha.value = n._alpha;
+    const cur = n._mesh.scale.x / (n._r * 8);
+    const next = cur + (n._scaleT - cur) * 0.1;
+    n._mesh.scale.setScalar(n._r * 8 * next);
+  });
+  links.forEach(l => {
+    l._op += (l._opT - l._op) * 0.14;
+    l._mat.opacity = l._op;
+  });
+
+  // 微尘:时间 + 视差
+  dustLayers.forEach(d => {
+    d.material.uniforms.uTime.value = t;
+    const p = d.userData.par;
+    d.position.x = camera.position.x * (1 - p) - mouseNX * 26 * p;
+    d.position.y = camera.position.y * (1 - p) + mouseNY * 26 * p;
+  });
+
+  composer.render();
+  labelRenderer.render(scene, camera);
+  drawMini();
+}
+updateTargets();
+animate();
+
+// ---------- 自适应 ----------
+addEventListener('resize', () => {
+  W = innerWidth; H = innerHeight;
+  camera.left = -W / 2; camera.right = W / 2; camera.top = H / 2; camera.bottom = -H / 2;
+  camera.updateProjectionMatrix();
+  renderer.setSize(W, H); composer.setSize(W, H); labelRenderer.setSize(W, H);
+  links.forEach(l => l._mat.resolution.set(W, H));
+  if (trailLine) trailLine.material.resolution.set(W, H);
+});
+
+// 调试钩子(无头截图用)
+window.__view = (x, y, k) => { camera.position.x = x; camera.position.y = y; zoomK = k; applyZoom(); updateTargets(); };

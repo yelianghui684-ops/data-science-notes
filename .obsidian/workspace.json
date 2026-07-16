@@ -187,6 +187,8 @@
   },
   "active": "d247101d5541f217",
   "lastOpenFiles": [
+    "docs/app.js",
+    "docs/style.css",
     "未命名.canvas",
     "未命名 1.canvas",
     "08-Data-Engineering/Data Cleaning.md",
@@ -223,7 +225,6 @@
     "Untitled.canvas",
     "Untitled.base",
     "03-Programming-Tools",
-    "02-Statistics",
-    "09-Projects"
+    "02-Statistics"
   ]
 }
