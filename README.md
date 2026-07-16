@@ -18,7 +18,9 @@ An Obsidian-based knowledge network for data science: **one central hub → 9 do
 - **Online**: enable GitHub Pages (Settings → Pages → Deploy from branch → `main` `/docs`), then visit
   `https://yelianghui684-ops.github.io/data-science-notes/`
 - **Local**: open [`docs/index.html`](docs/index.html) in a browser
-- Controls: drag to pan · scroll to zoom · click to focus · **double-click a node to open the note in Obsidian** · filter by domain via the legend, or search
+- **「知识星云」深空渲染**(Three.js + Shader + d3-force,零构建):莫兰迪低饱和星体、克制辉光、三层宇宙微尘视差、贝塞尔引力线(粗细=关联权重)、枢纽轨道圈
+- **信息降噪**:缩放三级 LOD(远景星团 / 中景主干 / 近景全标签)· 悬停视觉隧道(无关星体变暗)· 单击 Fly-to + 右侧详情抽屉(摘要 / 相连星体 / 编辑入口)· 右下小地图 · 底部浏览航线
+- Controls: drag to pan · scroll to zoom · hover to focus · click for drawer · **double-click to open in Obsidian**
 
 After adding notes, run `python3 tools/build_graph.py` to regenerate the graph data, then push.
 
