@@ -168,3 +168,10 @@ body[data-lod="near"] .starlabel.leaf { opacity: 1; }
 #fallback h2 { margin: 0 0 8px; font-size: 16px; color: #eef3ff; }
 #fallback p { font-size: 12px; color: var(--ink-dim); margin-bottom: 14px; }
 #fallback .btn { margin: 0 5px; }
+
+/* ---------- 深色细滚动条 ---------- */
+* { scrollbar-width: thin; scrollbar-color: rgba(140,160,210,.25) transparent; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(140,160,210,.22); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(140,160,210,.4); }

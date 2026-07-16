@@ -462,7 +462,7 @@ const graphData = {
    "degree": 11,
    "isHub": true,
    "path": "00-Home/🌌 Data Science Second Brain.md",
-   "excerpt": ""
+   "excerpt": "这是知识库的中心。所有领域从这里辐射出去,形成一张星状知识网络。"
   }
  ],
  "links": [

@@ -377,6 +377,11 @@ Object.entries(PALETTE).forEach(([g, c]) => {
 // ---------- 搜索(实时下拉 + Fly-to) ----------
 const searchEl = document.getElementById('search');
 const resultsEl = document.getElementById('results');
+searchEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { const first = resultsEl.querySelector('.item'); if (first) first.click(); }
+  if (e.key === 'Escape') { resultsEl.style.display = 'none'; searchEl.blur(); }
+});
+searchEl.addEventListener('blur', () => setTimeout(() => { resultsEl.style.display = 'none'; }, 180));
 searchEl.addEventListener('input', () => {
   const q = searchEl.value.trim().toLowerCase();
   resultsEl.innerHTML = '';
@@ -476,7 +481,8 @@ function renderTrail() {
 function visit(n, push = true) {
   if (push && trail[trail.length - 1] !== n) { trail.push(n); if (trail.length > 10) trail.shift(); renderTrail(); }
   focusNode = n;
-  flyTo(n.x, n.y, Math.max(zoomK, 2.6));
+  const k = Math.max(zoomK, 2.6);
+  flyTo(n.x + 168 / k, n.y, k);   // 右侧抽屉占位,星体居于可视区中心
   openDrawer(n);
   updateTargets();
 }
@@ -570,7 +576,12 @@ function drawMini() {
   mctx.strokeRect(tx(camera.position.x - vw / 2), ty(camera.position.y + vh / 2), vw * s, vh * s);
   mini._t = { tx, ty, s };
 }
-mini.addEventListener('pointerdown', e => {
+let miniDrag = false;
+mini.addEventListener('pointerup', () => { miniDrag = false; });
+mini.addEventListener('pointerleave', () => { miniDrag = false; });
+mini.addEventListener('pointermove', e => { if (miniDrag) miniJump(e, 0); });
+mini.addEventListener('pointerdown', e => { miniDrag = true; miniJump(e, 400); });
+function miniJump(e, dur) {
   if (!bbox || !mini._t) return;
   const rect = mini.getBoundingClientRect();
   const mx = (e.clientX - rect.left) * (mini.width / rect.width);
@@ -578,11 +589,13 @@ mini.addEventListener('pointerdown', e => {
   const { s } = mini._t;
   const gx = bbox.x0 + (mx - (mini.width - (bbox.x1 - bbox.x0) * s) / 2) / s;
   const gy = bbox.y1 - (my - (mini.height - (bbox.y1 - bbox.y0) * s) / 2) / s;
-  flyTo(gx, gy, zoomK, 500);
-});
+  if (dur) flyTo(gx, gy, zoomK, dur);
+  else { tween = null; camera.position.x = gx; camera.position.y = gy; }
+}
 
 // ---------- 主循环 ----------
 const VM = location.search.match(/view=([-\d.]+),([-\d.]+),([-\d.]+)/);
+const TEST = (location.search.match(/test=(\w+)/) || [])[1];
 const clock = new THREE.Clock();
 function syncGraph() {
   nodes.forEach(n => n._mesh.position.set(n.x, n.y, 0));
@@ -595,7 +608,8 @@ function animate() {
   if (VM) { camera.position.x = +VM[1]; camera.position.y = +VM[2]; zoomK = +VM[3]; applyZoom(); }
 
   if (simActive) {
-    for (let i = 0; i < 3; i++) { sim.tick(); simTicks++; }
+    const TPF = (VM || TEST) ? 24 : 3;
+    for (let i = 0; i < TPF; i++) { sim.tick(); simTicks++; }
     syncGraph();
     computeBBox();
     if (sim.alpha() < 0.05 || simTicks > 400) {
@@ -644,6 +658,22 @@ addEventListener('resize', () => {
 });
 
 // 调试钩子(无头截图用)
+if (TEST) {
+  const runTest = () => {
+    const pick = id => nodes.find(n => n.id === id);
+    if (TEST === 'hover') { hoverNode = pick('Pandas'); updateTargets(); }
+    if (TEST === 'drawer') visit(pick('Feature Engineering'));
+    if (TEST === 'trail') { visit(pick('Machine Learning MOC')); visit(pick('Feature Engineering')); visit(pick('Pandas')); visit(pick('NumPy')); }
+    if (TEST === 'search') { searchEl.value = 'data'; searchEl.dispatchEvent(new Event('input')); }
+    if (TEST === 'filter') document.querySelectorAll('#legend .lg')[5].click();
+  };
+  const wait = setInterval(() => {
+    if (settled || simTicks > 60) {
+      clearInterval(wait);
+      try { runTest(); console.log('[TEST] ran'); } catch (err) { console.error('[TEST] fail', err.message); }
+    }
+  }, 200);
+}
 window.__view = (x, y, k) => { camera.position.x = x; camera.position.y = y; zoomK = k; applyZoom(); updateTargets(); };
 </script>
 </body>

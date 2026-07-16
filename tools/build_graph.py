@@ -28,7 +28,10 @@ def extract_excerpt(text):
         s = ""
         for line in body.splitlines():
             t = line.strip()
-            if t and not t.startswith(("#", "-", ">", "⬆", "|", "!", "1.", "2.", "3.", "4.")):
+            if t.startswith(">"):
+                s = t.lstrip("> ").strip()
+                break
+            if t and not t.startswith(("#", "-", "⬆", "|", "!", "1.", "2.", "3.", "4.")):
                 s = t
                 break
     s = re.sub(r"\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]*))?\]\]",
