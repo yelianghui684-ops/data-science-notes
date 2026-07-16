@@ -8,7 +8,7 @@ tags: [首页, MOC]
 ## 九大领域
 
 - [[Mathematics MOC]] — 线性代数、微积分、最优化
-- [[Statistics MOC]] — 概率、推断、实验设计
+- [[Statistics MOC]] — 概率、推断、实验设计、时间序列
 - [[Programming and Tools MOC]] — Python、NumPy、Pandas、Git
 - [[Databases and SQL MOC]] — SQL、数据建模、NoSQL
 - [[Machine Learning MOC]] — 监督/无监督、模型评估、特征工程
@@ -17,10 +17,9 @@ tags: [首页, MOC]
 - [[Data Engineering MOC]] — ETL、大数据、MLOps
 - [[Projects MOC]] — Kaggle、端到端项目
 
-## 拓展领域(学业与兴趣)
+## 使用方法
 
-- )、职业规划
-- )** 枢纽笔记,汇总该领域的所有主题
+1. 每个领域有一个 **MOC(Map of Content)** 枢纽笔记,汇总该领域的所有主题
 2. 新建笔记时,务必用 `[[双链]]` 挂到对应 MOC 上,保持星状结构不散
 3. 用 [[Note Template]] 创建新笔记
 4. 星状知识图谱:仓库 `docs/index.html`,推送后可通过 GitHub Pages 在线查看

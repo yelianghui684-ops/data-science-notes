@@ -1,8 +1,8 @@
 # ✨ Data Science Second Brain / 数据科学第二大脑
 
-An Obsidian-based knowledge network: **one central hub → 14 domain MOCs → 80+ topic notes**, all interlinked via wikilinks into a star-shaped knowledge graph — covering the data science curriculum plus academics, finance & risk, Web3, TCM, and personal growth.
+An Obsidian-based knowledge network for data science: **one central hub → 9 domain MOCs → 50+ topic notes**, all interlinked via wikilinks into a star-shaped knowledge graph.
 
-用 Obsidian 构建的知识网络:1 个中心首页 → 14 大领域枢纽(MOC)→ 80+ 主题笔记,双链互联形成星状知识图谱 — 覆盖数据科学课程体系,以及学业、金融风控、Web3、中医、个人成长。
+用 Obsidian 构建的数据科学知识网络:1 个中心首页 → 9 大领域枢纽(MOC)→ 50+ 主题笔记,双链互联形成星状知识图谱。
 
 ## 🚀 Quick Access / 快速入口
 
@@ -36,11 +36,6 @@ After adding notes, run `python3 tools/build_graph.py` to regenerate the graph d
 | `07-Data-Visualization/` | Design principles · Matplotlib · Interactive | Data Visualization MOC |
 | `08-Data-Engineering/` | Cleaning · ETL · Big data · MLOps | Data Engineering MOC |
 | `09-Projects/` | Project template · Kaggle · Portfolio | Projects MOC |
-| `10-Academics/` | Course map · MCM · Competitive programming · Career | Academics MOC |
-| `11-Finance-Risk/` | Risk control · Quant · Internship · Investing classics | Finance and Risk MOC |
-| `12-Web3/` | Blockchain · Solidity · DeFi & on-chain data | Web3 MOC |
-| `13-TCM/` | TCM fundamentals · Acupuncture · Grading exam | TCM MOC |
-| `14-Personal-Growth/` | 80/20 method · English · Recovery · Reading | Personal Growth MOC |
 
 ## ✍️ Conventions / 写作约定
 
